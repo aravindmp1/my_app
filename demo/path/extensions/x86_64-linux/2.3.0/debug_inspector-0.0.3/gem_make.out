@@ -1,0 +1,15 @@
+current directory: /home/aravindh/demo/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+/usr/bin/ruby2.3 -r ./siteconf20180712-4225-2z8p7n.rb extconf.rb
+creating Makefile
+
+current directory: /home/aravindh/demo/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/demo/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: /home/aravindh/demo/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.so ./.gem.20180712-4225-1rc7slo

@@ -1,0 +1,50 @@
+[2018-07-03 16:12:04] alias_create_execute
+alias_create_execute () 
+{ 
+    for _path in "$rvm_rubies_path" "$rvm_gems_path" "$rvm_environments_path" "$rvm_wrappers_path";
+    do
+        if [[ -L "$_path/$alias_name" ]]; then
+            \command \rm -fv "$_path/$alias_name" || return $?;
+        fi;
+        \command \ln -fs "$_path/$rvm_ruby_string" "$_path/$alias_name" || return $?;
+    done;
+    __rvm_db_ "$rvm_path/config/alias" "$alias_name" "$rvm_ruby_string"
+}
+current path: /home/aravindh
+GEM_HOME=/home/aravindh/.rvm/gems/ruby-2.5.1
+PATH=/home/aravindh/.rvm/gems/ruby-2.5.1/bin:/home/aravindh/.rvm/gems/ruby-2.5.1@global/bin:/home/aravindh/.rvm/rubies/ruby-2.5.1/bin:/home/aravindh/.rvm/bin:/home/aravindh/bin:/home/aravindh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+GEM_PATH=/home/aravindh/.rvm/gems/ruby-2.5.1:/home/aravindh/.rvm/gems/ruby-2.5.1@global
+command(1): alias_create_execute
++ for _path in '"$rvm_rubies_path"' '"$rvm_gems_path"' '"$rvm_environments_path"' '"$rvm_wrappers_path"'
++ [[ -L /home/aravindh/.rvm/rubies/default ]]
++ command ln -fs /home/aravindh/.rvm/rubies/ruby-2.5.1 /home/aravindh/.rvm/rubies/default
++ ln -fs /home/aravindh/.rvm/rubies/ruby-2.5.1 /home/aravindh/.rvm/rubies/default
++ for _path in '"$rvm_rubies_path"' '"$rvm_gems_path"' '"$rvm_environments_path"' '"$rvm_wrappers_path"'
++ [[ -L /home/aravindh/.rvm/gems/default ]]
++ command ln -fs /home/aravindh/.rvm/gems/ruby-2.5.1 /home/aravindh/.rvm/gems/default
++ ln -fs /home/aravindh/.rvm/gems/ruby-2.5.1 /home/aravindh/.rvm/gems/default
++ for _path in '"$rvm_rubies_path"' '"$rvm_gems_path"' '"$rvm_environments_path"' '"$rvm_wrappers_path"'
++ [[ -L /home/aravindh/.rvm/environments/default ]]
++ command ln -fs /home/aravindh/.rvm/environments/ruby-2.5.1 /home/aravindh/.rvm/environments/default
++ ln -fs /home/aravindh/.rvm/environments/ruby-2.5.1 /home/aravindh/.rvm/environments/default
++ for _path in '"$rvm_rubies_path"' '"$rvm_gems_path"' '"$rvm_environments_path"' '"$rvm_wrappers_path"'
++ [[ -L /home/aravindh/.rvm/wrappers/default ]]
++ command ln -fs /home/aravindh/.rvm/wrappers/ruby-2.5.1 /home/aravindh/.rvm/wrappers/default
++ ln -fs /home/aravindh/.rvm/wrappers/ruby-2.5.1 /home/aravindh/.rvm/wrappers/default
++ __rvm_db_ /home/aravindh/.rvm/config/alias default ruby-2.5.1
++ typeset __db __key __value
++ __db=/home/aravindh/.rvm/config/alias
++ __key=default
++ shift 2
++ __value=ruby-2.5.1
++ case "${__value}" in
++ __rvm_db_add /home/aravindh/.rvm/config/alias default ruby-2.5.1
++ typeset __dir=/home/aravindh/.rvm/config
++ [[ -f /home/aravindh/.rvm/config/alias ]]
++ __rvm_db_remove /home/aravindh/.rvm/config/alias default
++ [[ -f /home/aravindh/.rvm/config/alias ]]
++ __rvm_sed -e '\#^default=# d' -e '/^$/d' /home/aravindh/.rvm/config/alias
++ sed -e '\#^default=# d' -e '/^$/d' /home/aravindh/.rvm/config/alias
++ command mv -f /home/aravindh/.rvm/config/alias.new /home/aravindh/.rvm/config/alias
++ mv -f /home/aravindh/.rvm/config/alias.new /home/aravindh/.rvm/config/alias
++ printf '%b=%b\n' default ruby-2.5.1

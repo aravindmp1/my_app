@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbel version="1.0"
+      xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
+      xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
+>
+  <bookmark href="file:///home/aravindh/Untitled%20Document" added="2018-07-05T11:02:50Z" modified="2018-07-05T11:02:52Z" visited="2018-07-05T11:02:50Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-05T11:02:50Z" count="1"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-05T11:02:52Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/rept.rb" added="2018-07-09T06:09:44Z" modified="2018-07-09T06:09:46Z" visited="2018-07-09T06:09:44Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-09T06:09:44Z" count="1"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T06:09:46Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/name.rb" added="2018-07-09T08:33:29Z" modified="2018-07-09T08:33:29Z" visited="2018-07-09T08:33:29Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T08:33:29Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/test.rb" added="2018-07-09T08:35:04Z" modified="2018-07-09T08:35:04Z" visited="2018-07-09T08:35:04Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T08:35:04Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/rvm.sh" added="2018-07-09T08:53:02Z" modified="2018-07-09T08:53:02Z" visited="2018-07-09T08:53:02Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-shellscript"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;vim %F&apos;" modified="2018-07-09T08:53:02Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/we.rb" added="2018-07-09T08:58:10Z" modified="2018-07-09T08:58:10Z" visited="2018-07-09T08:58:10Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T08:58:10Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/palin.rb" added="2018-07-09T08:58:16Z" modified="2018-07-09T08:58:16Z" visited="2018-07-09T08:58:16Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T08:58:16Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/aravind.rb" added="2018-07-09T08:58:24Z" modified="2018-07-09T08:58:24Z" visited="2018-07-09T08:58:24Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T08:58:24Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/mywork/rept.rb" added="2018-07-09T09:19:48Z" modified="2018-07-09T10:13:00Z" visited="2018-07-09T09:19:49Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T10:11:50Z" count="2"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-09T10:13:00Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/name/aravind/aravind.rb" added="2018-07-09T09:48:50Z" modified="2018-07-12T07:20:17Z" visited="2018-07-09T09:48:50Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-09T09:48:50Z" count="1"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-12T07:20:17Z" count="4"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/rspec_tutorial/hello_world_spec.rb" added="2018-07-10T06:56:51Z" modified="2018-07-10T06:56:53Z" visited="2018-07-10T06:56:51Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-10T06:56:51Z" count="1"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-10T06:56:53Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_aravindh0/selectreverse.rb" added="2018-07-11T04:42:17Z" modified="2018-07-11T04:42:19Z" visited="2018-07-11T04:42:17Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-11T04:42:17Z" count="1"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-11T04:42:19Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Code/Ruby/weblog/README.rdoc" added="2018-07-11T09:17:29Z" modified="2018-07-11T09:55:52Z" visited="2018-07-11T09:17:30Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-11T09:17:29Z" count="1"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-11T09:55:52Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Code/Ruby/weblog/app/views/layouts/application.html.erb" added="2018-07-11T09:57:52Z" modified="2018-07-11T09:57:52Z" visited="2018-07-11T09:57:53Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/html"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;firefox %u&apos;" modified="2018-07-11T09:57:52Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning.zip" added="2018-07-12T06:54:32Z" modified="2018-07-12T06:54:32Z" visited="2018-07-12T06:54:32Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-12T06:54:32Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1).zip" added="2018-07-12T07:00:58Z" modified="2018-07-12T07:13:33Z" visited="2018-07-12T07:00:58Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-12T07:00:58Z" count="1"/>
+          <bookmark:application name="nautilus" exec="&apos;file-roller %U&apos;" modified="2018-07-12T07:01:12Z" count="1"/>
+          <bookmark:application name="File Roller" exec="&apos;file-roller&apos;" modified="2018-07-12T07:13:33Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/.cache/.fr-PBbZWr/dec-2_5.txt" added="2018-07-12T07:01:17Z" modified="2018-07-12T07:09:30Z" visited="2018-07-12T07:01:17Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-12T07:09:30Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/.cache/.fr-P5Crkj/data_cleaning_guidelines.txt" added="2018-07-12T07:01:47Z" modified="2018-07-12T07:01:47Z" visited="2018-07-12T07:01:47Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-12T07:01:47Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/.cache/.fr-PtRWFn/dec-2_5.txt" added="2018-07-12T07:02:18Z" modified="2018-07-12T07:02:18Z" visited="2018-07-12T07:02:18Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-12T07:02:18Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/data_cleaning_guidelines.txt" added="2018-07-12T07:13:40Z" modified="2018-07-13T10:42:02Z" visited="2018-07-12T07:13:40Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T10:42:02Z" count="7"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-13T10:08:15Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_1.txt" added="2018-07-12T07:14:49Z" modified="2018-07-12T07:14:58Z" visited="2018-07-12T07:14:50Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-12T07:14:49Z" count="1"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-12T07:14:58Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_5.txt" added="2018-07-12T07:15:53Z" modified="2018-07-12T08:50:25Z" visited="2018-07-12T07:15:54Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-12T08:41:29Z" count="2"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-12T07:20:50Z" count="3"/>
+          <bookmark:application name="nautilus" exec="&apos;/opt/sublime_text/sublime_text %F&apos;" modified="2018-07-12T08:50:25Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_5" added="2018-07-12T07:20:49Z" modified="2018-07-12T07:20:49Z" visited="2018-07-12T07:20:51Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/octet-stream"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-12T07:20:49Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_5.odt" added="2018-07-12T07:20:51Z" modified="2018-07-13T10:13:36Z" visited="2018-07-12T07:20:51Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T10:13:36Z" count="92"/>
+          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-13T08:21:36Z" count="8"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/Untitled%201" added="2018-07-13T05:50:07Z" modified="2018-07-13T05:50:07Z" visited="2018-07-13T05:50:07Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/octet-stream"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T05:50:07Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/Untitled%201.odt" added="2018-07-13T05:50:08Z" modified="2018-07-13T10:56:12Z" visited="2018-07-13T05:50:08Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T10:56:12Z" count="9"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/weather.odt" added="2018-07-13T05:54:27Z" modified="2018-07-13T05:54:32Z" visited="2018-07-13T05:54:28Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T05:54:32Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/wetaaher1.txt" added="2018-07-13T05:56:46Z" modified="2018-07-13T05:56:46Z" visited="2018-07-13T05:56:47Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T05:56:46Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/weather1.txt" added="2018-07-13T06:00:06Z" modified="2018-07-13T06:00:06Z" visited="2018-07-13T06:00:06Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T06:00:06Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/fizzbuzz/gemfile" added="2018-07-13T10:38:36Z" modified="2018-07-13T10:38:36Z" visited="2018-07-13T10:38:36Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T10:38:36Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/POSGRESQL" added="2018-07-13T10:56:11Z" modified="2018-07-13T10:56:11Z" visited="2018-07-13T10:56:12Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/octet-stream"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T10:56:11Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/Desktop/POSGRESQL.odt" added="2018-07-13T10:56:12Z" modified="2018-07-13T11:11:27Z" visited="2018-07-13T10:56:12Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
+        <bookmark:applications>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T11:11:20Z" count="6"/>
+          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-13T10:56:35Z" count="1"/>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-13T11:11:27Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/sorting.rb" added="2018-07-13T11:38:47Z" modified="2018-07-13T11:38:47Z" visited="2018-07-13T11:38:47Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T11:38:47Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_aravindh0/ruby_on_rails_tutorial-preview.epub" added="2018-07-18T05:09:04Z" modified="2018-07-18T05:14:52Z" visited="2018-07-18T05:09:04Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/epub+zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-18T05:14:52Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/.cache/.fr-46FdOW/mimetype" added="2018-07-18T05:11:27Z" modified="2018-07-18T05:11:27Z" visited="2018-07-18T05:11:28Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T05:11:27Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_aravindh0/ruby_on_rails_tutorial-preview-1.epub" added="2018-07-18T05:14:54Z" modified="2018-07-18T05:14:54Z" visited="2018-07-18T05:14:55Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/epub+zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-18T05:14:54Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_aravindh0/ruby_on_rails_tutorial-preview-2.epub" added="2018-07-18T05:15:10Z" modified="2018-07-18T05:15:10Z" visited="2018-07-18T05:15:10Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/epub+zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-18T05:15:10Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///tmp/mozilla_aravindh0/ruby_on_rails_tutorial-preview-3.epub" added="2018-07-18T05:16:09Z" modified="2018-07-18T05:16:09Z" visited="2018-07-18T05:16:09Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/epub+zip"/>
+        <bookmark:applications>
+          <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-18T05:16:09Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/hello_app/Gemfile" added="2018-07-18T05:38:06Z" modified="2018-07-18T06:35:40Z" visited="2018-07-18T05:38:06Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T06:35:40Z" count="11"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T06:35:34Z" count="9"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/hello_app/README.rdoc" added="2018-07-18T05:55:44Z" modified="2018-07-18T05:55:44Z" visited="2018-07-18T05:55:44Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T05:55:44Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/hello_app/Gemfile.lock" added="2018-07-18T05:55:59Z" modified="2018-07-18T05:55:59Z" visited="2018-07-18T05:56:00Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T05:55:59Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/my_app/Gemfile" added="2018-07-18T06:39:43Z" modified="2018-07-18T06:54:53Z" visited="2018-07-18T06:39:43Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T06:40:41Z" count="11"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T06:54:53Z" count="4"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/my_app/gemfile" added="2018-07-18T06:54:39Z" modified="2018-07-18T06:54:39Z" visited="2018-07-18T06:54:40Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T06:54:39Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/my_app/app/controllers/application_controller.rb" added="2018-07-18T06:59:55Z" modified="2018-07-18T07:01:21Z" visited="2018-07-18T06:59:55Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T07:01:21Z" count="14"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/my_app/config/routes.rb" added="2018-07-18T07:02:00Z" modified="2018-07-18T07:12:52Z" visited="2018-07-18T07:02:00Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-ruby"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T07:12:52Z" count="2"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T07:02:32Z" count="11"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/my_app/tmp/pids/server.pid" added="2018-07-18T07:13:35Z" modified="2018-07-18T07:15:11Z" visited="2018-07-18T07:13:35Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T07:13:35Z" count="1"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T07:15:11Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+</xbel>

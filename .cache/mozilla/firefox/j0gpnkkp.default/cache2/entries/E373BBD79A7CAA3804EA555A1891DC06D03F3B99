@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Difference MySQL PostGreSQL - IMSMA Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Difference_MySQL_PostGreSQL","wgTitle":"Difference MySQL PostGreSQL","wgCurRevisionId":20599,"wgRevisionId":20599,"wgArticleId":2680,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["NAA"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Difference_MySQL_PostGreSQL","wgRelevantArticleId":2680,"wgRequestId":"9336baf185fda60886607e8f","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":true,"publish":false},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":false,"nearby":false,"watchlist":false,"tagline":false}});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user.cssprefs":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0j3lz3q",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens@16uz5it",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.page.startup","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/mediawiki/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/mediawiki/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/mediawiki/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.28.0"/>
+<link rel="shortcut icon" href="/mediawiki/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/mediawiki/opensearch_desc.php" title="IMSMA Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="http://mwiki.gichd.org:8090/mediawiki/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="IMSMA Wiki Atom feed" href="/mediawiki/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Difference_MySQL_PostGreSQL rootpage-Difference_MySQL_PostGreSQL skin-vector action-view feature-footer-v2">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Difference MySQL PostGreSQL</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From IMSMA Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Warning.jpg" class="image"><img alt="Warning.jpg" src="/mediawiki/images/thumb/1/10/Warning.jpg/40px-Warning.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/1/10/Warning.jpg/60px-Warning.jpg 1.5x, /mediawiki/images/thumb/1/10/Warning.jpg/80px-Warning.jpg 2x" /></a> </td>
+<td>  There are relation differences between IMSMA<sup>NG</sup> 5.08.04 and 6.0 database meaning that FKeys constrains and cascading rules have been changed even for tables that existed in 5.08.04.
+</td></tr></table>
+<table cellspacing="0" cellpadding="0" style="clear: right; margin-bottom: .5em; float: right; padding: .5em 0 .8em 1.4em; background: none; width: auto;">
+<tr>
+<td> <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Most_common_changes_in_queries_and_views_from_MySQL_to_PostgreSQL"><span class="tocnumber">2</span> <span class="toctext">Most common changes in queries and views from MySQL to PostgreSQL</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Case_sensitivity_and_column_names"><span class="tocnumber">2.1</span> <span class="toctext">Case sensitivity and column names</span></a></li>
+<li class="toclevel-2"><a href="#CAST_AS_CHAR_CHARSET_utf8_and_utf8_.28MySQL.29"><span class="tocnumber">2.2</span> <span class="toctext">CAST AS CHAR CHARSET utf8 and _utf8 (MySQL)</span></a></li>
+<li class="toclevel-2"><a href="#IF_and_IFNULL_.28MySQL.29_.2F_CASE_.28PostgreSQL.29_statements_.28conditional_expressions.29"><span class="tocnumber">2.3</span> <span class="toctext">IF and IFNULL (MySQL) / CASE (PostgreSQL) statements (conditional expressions)</span></a></li>
+<li class="toclevel-2"><a href="#Date_manipulations"><span class="tocnumber">2.4</span> <span class="toctext">Date manipulations</span></a></li>
+<li class="toclevel-2"><a href="#The_GROUP_BY_clause"><span class="tocnumber">2.5</span> <span class="toctext">The GROUP BY clause</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Postgres_Tips_.26_Tricks"><span class="tocnumber">3</span> <span class="toctext">Postgres Tips &amp; Tricks</span></a>
+<ul>
+<li class="toclevel-2 tocsection-1"><a href="#String_manipulations"><span class="tocnumber">3.1</span> <span class="toctext">String manipulations</span></a></li>
+<li class="toclevel-2"><a href="#Rounding_numeric_values"><span class="tocnumber">3.2</span> <span class="toctext">Rounding numeric values</span></a></li>
+<li class="toclevel-2"><a href="#Type_conversions"><span class="tocnumber">3.3</span> <span class="toctext">Type conversions</span></a></li>
+<li class="toclevel-2"><a href="#Query_for_duplicates"><span class="tocnumber">3.4</span> <span class="toctext">Query for duplicates</span></a></li>
+<li class="toclevel-2"><a href="#WITH_clause"><span class="tocnumber">3.5</span> <span class="toctext">WITH clause</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#References"><span class="tocnumber">4</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>IMSMA<sup>NG</sup> version 6.0 is building on a PostgreSQL database management system, whereas previous IMSMA<sup>NG</sup> versions were built on a MySQL database. Both systems are relational database systems and using SQL, the Structured Query Language, as means for interacting with it. However, there are some differences between the MySQL and PostgreSQL syntax. It is not possible to list all differences here, but the main ones encountered in the IMSMA<sup>NG</sup> world are highlighted below.
+The biggest differences are:
+</p>
+<ul><li> PostgreSQL is case sensitive</li>
+<li> Built-in functions (e.g. conditional expressions)</li>
+<li> Dates and time formats and queries</li>
+<li> Custom functions</li></ul>
+<p>For more details about the PostgreSQL syntax it is advised to consult the official PostgreSQL documentation at <a target="_blank" rel="nofollow noreferrer noopener" class="external autonumber" href="http://www.postgresql.org/docs/9.1/static/index.html">[1]</a>. For more details about using SQL statements in IMSMA<sup>NG</sup> import scripts contact your <a href="/IM/Information_Management_Team" title="Information Management Team"> GICHD IM advisor</a>.
+</p>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Note.jpg" class="image"><img alt="Note.jpg" src="/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/9/90/Note.jpg/60px-Note.jpg 1.5x, /mediawiki/images/thumb/9/90/Note.jpg/80px-Note.jpg 2x" /></a> </td>
+<td>  PostgreSQL complies to ANSI SQL standards, whereas MySQL does not.
+</td></tr></table>
+<h2><span class="mw-headline" id="Most_common_changes_in_queries_and_views_from_MySQL_to_PostgreSQL">Most common changes in queries and views from MySQL to PostgreSQL</span></h2>
+<p>When upgrading from IMSMA<sup>NG</sup> 5.08.04 to 6.0, the database views need to be adapted, i.e. changed from MySQL syntax to PostgreSQL syntax. The country focal point is taking care of this. For reference, this section describes the main changes encountered. This can also be used as a tutorial for creating views in PostgreSQL, for IMSMA<sup>NG</sup> administrators who were used to creating them in MySQL.
+</p>
+<h3><span class="mw-headline" id="Case_sensitivity_and_column_names">Case sensitivity and column names</span></h3>
+<p>PostgreSQL, as opposed to MySQL, is case-sensitive. This means that strings need to be provided in exactly the way they are stored in the database. For example, in the table IMSMAENUM, one out of many values in the column ENUMVALUE is <i>Progress Report</i>, with capital P and capital R. In MySQL it was possible to write:
+</p>
+<pre>
+SELECT *
+FROM imsmaenum
+WHERE enumvalue = 'progress report'
+</pre>
+<p>and still get one row as result. In PostgreSQL, the same query will return no result.
+</p><p>Therefore, a create view statement like this:<br />
+<b>MySQL</b>
+</p>
+<pre>
+CREATE OR REPLACE VIEW my_view AS
+SELECT ...
+FROM `imsmaenum`, ...
+WHERE `imsmaenum`.`enumvalue` = 'progress report';
+</pre>
+<p>needs to be changed to:<br />
+<b>PostgreSQL</b>
+</p>
+<pre>
+CREATE OR REPLACE VIEW my_view AS
+SELECT ...
+FROM imsmaenum, ...
+WHERE imsmaenum.enumvalue = 'Progress Report';
+</pre>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Note.jpg" class="image"><img alt="Note.jpg" src="/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/9/90/Note.jpg/60px-Note.jpg 1.5x, /mediawiki/images/thumb/9/90/Note.jpg/80px-Note.jpg 2x" /></a> </td>
+<td>  The single quote <b>`</b> present in the MySQL queries is an artifact of the tool Navicat from which these queries have been extracted.
+</td></tr></table>
+<p>Similarly, in MySQL it is possible to define column names with a mix of upper and lower case as well as blanks and other special characters without any trouble. In PostgreSQL, this is also possible, but in this case the column name <b>must</b> be enclosed in double quotes. For example, the following create view statement:<br />
+<b>MySQL</b>
+</p>
+<pre>
+CREATE VIEW my_view AS
+SELECT `hazreducdeviceinfo`.`hazreduc_guid` AS `hazreduc_guid`,
+`ordnance`.`model` AS `Device Type`
+FROM `hazreducdeviceinfo`;
+</pre>
+<p>needs to be changed to:<br />
+<b>PostgreSQL</b>
+</p>
+<pre>
+CREATE VIEW my_view AS
+SELECT hazreducdeviceinfo.hazreduc_guid AS hazreduc_guid,
+ordnance.model AS "Device Type"
+FROM hazreducdeviceinfo;
+</pre>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Note.jpg" class="image"><img alt="Note.jpg" src="/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/9/90/Note.jpg/60px-Note.jpg 1.5x, /mediawiki/images/thumb/9/90/Note.jpg/80px-Note.jpg 2x" /></a> </td>
+<td>  This also applies to querying the data. For select rows where the device type is equal to 'xy', the syntax is the following: <pre> ... WHERE "Device Type" = 'xy'</pre>
+</td></tr></table>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Note.jpg" class="image"><img alt="Note.jpg" src="/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/9/90/Note.jpg/60px-Note.jpg 1.5x, /mediawiki/images/thumb/9/90/Note.jpg/80px-Note.jpg 2x" /></a> </td>
+<td>  If an column name in PostgreSQL is written with upper case but not enclosed into double quotes, it will be created in lower case in the database.
+</td></tr></table>
+<h3><span class="mw-headline" id="CAST_AS_CHAR_CHARSET_utf8_and_utf8_.28MySQL.29">CAST AS CHAR CHARSET utf8 and _utf8 (MySQL)</span></h3>
+<p>In some (older) MySQL versions, UTF-8 was not the default character set and strings thus needed to be explicitly converted to UTF-8. This is not the case in PostgreSQL and UTF-8 related syntax as used in MySQL does not work in PostgreSQL. Below are two examples encountered in IMSMA<sup>NG</sup> views.
+</p><p><b>MySQL</b>
+</p>
+<pre>
+AND (`customdefinedfield`.`label` = _utf8'CDF-Area Reduction MDU')
+</pre>
+<p><b>PostgreSQL</b>
+</p>
+<pre>
+AND (customdefinedfield.label = 'CDF-Area Reduction MDU')
+</pre>
+<p><b>MySQL</b>
+</p>
+<pre>
+cast(`geopoint`.`latitude` as char charset utf8) AS `lat`
+</pre>
+<p><b>PostgreSQL</b>
+</p>
+<pre>
+cast(geopoint.latitude as char) AS lat
+</pre>
+<h3><span class="mw-headline" id="IF_and_IFNULL_.28MySQL.29_.2F_CASE_.28PostgreSQL.29_statements_.28conditional_expressions.29">IF and IFNULL (MySQL) / CASE (PostgreSQL) statements (conditional expressions)</span></h3>
+<p>The statements IF() and IFNULL() do not exist in PostgreSQL. In PostgreSQL, the CASE statement is used for conditional expressions. The syntax of the CASE statement is as follows:
+</p>
+<pre>
+CASE WHEN condition THEN result
+     [WHEN ...]
+     [ELSE result]
+END
+</pre>
+<p>Therefore, for example the following create view statement:<br />
+<b>MySQL</b>
+</p>
+<pre>
+CREATE VIEW `my_view` AS
+SELECT
+sum(if((`my_view2`.`Device Type` = _utf8'SAA'),`my_view2`.`Quantity`,0)) AS`SAA`,
+sum(if((`my_view2`.`Device Type` = _utf8'AP'),`my_view2`.`Quantity`,0)) AS `AP`,
+sum(if((`my_view2`.`Device Type` = _utf8'AIED'),`my_view2`.`Quantity`,0)) AS `AIED`,
+sum(if((`my_view2`.`Device Type` = _utf8'UXO'),`my_view2`.`Quantity`,0)) AS `UXO`,
+sum(if((`my_view2`.`Device Type` = _utf8'AT'),`my_view2`.`Quantity`,0)) AS `AT`,
+sum(if((`my_view2`.`Device Type` = _utf8'Fragments'),`my_view2`.`Quantity`,0)) AS `Fragments`
+FROM
+`my_view2`;
+</pre>
+<p>needs to be changed to:<br />
+<b>PostgreSQL</b>
+</p>
+<pre>
+CREATE VIEW my_view AS
+SELECT
+sum(case when my_view2.Device Type = 'SAA') then my_view2.Quantity else 0 end) AS "SAA",
+sum(case when my_view2.Device Type = 'AP') then my_view2.Quantity else 0 end) AS "AP",
+sum(case when my_view2.Device Type = 'AIED') then my_view2.Quantity else 0 end) AS "AIED",
+sum(case when my_view2.Device Type = 'UXO') then my_view2.Quantity else 0 end) AS "UXO",
+sum(case when my_view2.Device Type = 'AT') then my_view2.Quantity else 0 end) AS "AT",
+sum(case when my_view2.Device Type = 'Fragments') then my_view2.Quantity else 0 end) AS "Fragments"
+FROM
+my_view2;
+</pre>
+<p>The ISNULL() function can also be translated into a CASE statement:
+</p>
+<pre>
+CASE WHEN field IS NULL THEN result
+END
+</pre>
+<p>Alternatively, the built-in function COALESCE() can be used in PostgreSQL:
+</p>
+<pre>
+SELECT COALESCE(field, 'N/A')
+FROM table;
+</pre>
+<p>This query will return the value of <i>field</i> if it is not null, or the string N/A if field is null. In general, COALESCE() returns the first value that is not null:
+</p>
+<pre>
+SELECT COALESCE(field1, field2, field3, 'N/A')
+FROM table;
+</pre>
+<p>If field1 is null, this query will evaluate field2 -- if field2 is null, it will evaluate field3, etc. If all the provided fields are null, it will return the last provided value, in this case the string N/A.
+</p>
+<h3><span class="mw-headline" id="Date_manipulations">Date manipulations</span></h3>
+<p>There are differences between MySQL and PostgreSQL when it comes to manipulating fields of type DATE, such as for example extracting the year or the month of a date. In MySQL, the related functions are year() and month(). In PostgreSQL, there is an extract() function that does the job. See the below example for reference. The following create view statement:<br />
+<b>MySQL</b>
+</p>
+<pre>
+CREATE VIEW `my_view` AS
+SELECT
+(year(`my_view2`.`DateofAccident`) - year(`my_view2`.`DateofBirth`)) AS `Age`,
+year(`my_view2`.`DateofAccident`) AS `Year`,
+month(`my_view2`.`DateofAccident`) AS `Month`
+FROM `my_view2`;
+</pre>
+<p>needs to be changed to:<br />
+<b>PostgreSQL</b>
+</p>
+<pre>
+CREATE VIEW my_view AS
+SELECT
+extract(year from my_view2."DateofAccident") - extract(year from my_view2."DateofBirth") AS "Age",
+extract(year from my_view2."DateofAccident") AS "Year",
+extract(month from my_view2."DateofAccident") AS "Month"
+FROM my_view2;
+</pre>
+<h3><span class="mw-headline" id="The_GROUP_BY_clause">The GROUP BY clause</span></h3>
+<p>MySQL has much more "relaxed" rules about using the GROUP BY clause than PostgreSQL has. Therefore, adaptations might need to be done in views using grouping with GROUP BY.
+The things to consider are the following:
+</p>
+<ul><li> <b>PostgreSQL</b>: When GROUP BY is present, it is not valid for the SELECT list expressions to refer to ungrouped columns except within aggregate functions or if the ungrouped column is functionally dependent on the grouped columns (cf. <a target="_blank" rel="nofollow noreferrer noopener" class="external autonumber" href="http://www.postgresql.org/docs/9.1/static/sql-select.html#SQL-GROUPBY">[2]</a>). In other words, when  the SELECT part of a query or create view statement contains three columns without aggregation and two with an aggregation function, all three columns without the aggregation <b>must</b> be specified in the GROUP BY clause. This is not the case in MySQL.</li></ul>
+<p>An example best illustrates that behavior. Consider this <b>MySQL</b> view from an IMSMA<sup>NG</sup> deployment in a country:
+</p>
+<pre>
+CREATE VIEW `annualreport_view_bac` AS
+select `progress`.`hazreduc_guid` AS `ProgressGUID`,
+cast(`progress`.`startdate` as date) AS `StartofReportingPeriod`,
+cast(`progress`.`enddate` as date) AS `EndofReportingPeriod`,
+`progress`.`areasize` AS `AreaCleared`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'SAA'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `SAA`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'AP'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `AP`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'UXO'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `UXO`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'AT'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `AT`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'Fragments'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `Fragments`,
+sum(if((`annualreport_view_devicesdestroyed`.`Model` = _utf8'AIED'),`annualreport_view_devicesdestroyed`.`Quantity`,0)) AS `AIED`,
+`annualreport_view_clearancetype`.`Clearance Type` AS `ClearanceType`,
+`my_view_organization`.`ShortName` AS `Agency`,
+`my_view_gazetteer`.`Region` AS `Region`,
+`my_view_gazetteer`.`Province` AS `Province`,
+`my_view_gazetteer`.`District` AS `District`,
+`my_view_gazetteer`.`Village` AS `Village`
+from (((((`hazreduc` `Progress`
+join `imsmaenum` on((`progress`.`hazreductypeenum_guid` = `imsmaenum`.`imsmaenum_guid`)))
+left join `annualreport_view_devicesdestroyed` on((`annualreport_view_devicesdestroyed`.`ProgressGUID` = `progress`.`hazreduc_guid`))) 
+join `annualreport_view_clearancetype` on((`annualreport_view_clearancetype`.`Hazreduc_guid` = `progress`.`hazreduc_guid`)))
+join `my_view_organization` on((`progress`.`org_guid` = `my_view_organization`.`org_guid`)))
+join `my_view_gazetteer` on((`my_view_gazetteer`.`location_guid` = `progress`.`location_guid`)))
+where (`imsmaenum`.`enumvalue` = _utf8'progress report')
+group by `progress`.`hazreduc_guid`;
+</pre>
+<p>Note the following regarding the above code:
+</p>
+<ul><li> All the column definitions starting with <i>sum(if</i>... use aggregation functions (in this case sum()).</li>
+<li> Only one column (hazreduc_guid) is present in the GROUP BY clause, but many columns without an aggregation function are specified in the SELECT clause.</li></ul>
+<p>In <b>PostgreSQL</b>, even after performing all changes described above on this page, this view definition will not work. The reason is that all the non-aggregation columns of the SELECT statement need to be referred to in the GROUP BY clause. An exception can only be made for those that are dependent on another attribute that is specified in the GROUP BY. In this example, since the hazreduc_guid is in the GROUP BY and it is the primary key of the table HAZREDUC (renamed to <i>progress</i> in the above query), all other columns of that same table (in this case cast(progress.startdate as date), cast(progress.enddate as date) and progress.areasize can be omitted from the GROUP BY clause. 
+Taking into account all the changes to be made as described on this page, and looking into the GROUP BY clause issue, the following code would be equivalent in <b>PostgreSQL</b>:
+</p>
+<pre>
+CREATE VIEW annualreport_view_bac AS
+select progress.hazreduc_guid AS "ProgressGUID",
+cast(progress.startdate as date) AS "StartofReportingPeriod",
+cast(progress.enddate as date) AS "EndofReportingPeriod",
+progress.areasize AS "AreaCleared",
+sum(case when annualreport_view_devicesdestroyed.Model = 'SAA' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "SAA",
+sum(case when annualreport_view_devicesdestroyed.Model = 'AP' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "AP",
+sum(case when annualreport_view_devicesdestroyed.Model = 'UXO' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "UXO",
+sum(case when annualreport_view_devicesdestroyed.Model = 'AT' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "AT",
+sum(case when annualreport_view_devicesdestroyed.Model = 'Fragments' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "Fragments",
+sum(case when annualreport_view_devicesdestroyed.Model = 'AIED' then annualreport_view_devicesdestroyed.Quantity else 0 end) AS "AIED",
+annualreport_view_clearancetype."Clearance Type" AS "ClearanceType",
+my_view_organization.ShortName AS "Agency",
+my_view_gazetteer.Region AS "Region",
+my_view_gazetteer.Province AS "Province",
+my_view_gazetteer.District AS "District",
+my_view_gazetteer.Village AS "Village"
+from hazreduc progress
+join imsmaenum on (progress.hazreductypeenum_guid = imsmaenum.imsmaenum_guid)
+left join annualreport_view_devicesdestroyed on (annualreport_view_devicesdestroyed.ProgressGUID = progress.hazreduc_guid)
+join annualreport_view_clearancetype on (annualreport_view_clearancetype.Hazreduc_guid = progress.hazreduc_guid)
+join my_view_organization on (progress.org_guid = my_view_organization.org_guid)
+join my_view_gazetteer on (my_view_gazetteer.location_guid = progress.location_guid)
+where (imsmaenum.enumvalue = 'Progress Report')
+group by progress.hazreduc_guid,
+cast(progress.startdate as date),
+cast(progress.enddate as date),
+progress.areasize,
+annualreport_view_clearancetype."Clearance Type",
+my_view_organization.ShortName,
+my_view_gazetteer.Region,
+my_view_gazetteer.Province,
+my_view_gazetteer.District,
+my_view_gazetteer.Village;
+</pre>
+<p>Note that the columns cast(progress.startdate as date), cast(progress.enddate as date) and progress.areasize in the GROUP BY are optional.
+</p>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Note.jpg" class="image"><img alt="Note.jpg" src="/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/9/90/Note.jpg/60px-Note.jpg 1.5x, /mediawiki/images/thumb/9/90/Note.jpg/80px-Note.jpg 2x" /></a> </td>
+<td>  Although the PostgreSQL version can seem more "tedious" here, it is actually more correct and standard-compliant. In fact, it is important to specify all the groupings, otherwise the system (e.g. MySQL) will choose the remaining ones and apply some sorting to do so.
+</td></tr></table>
+<table class="wikitable" style="background-color:white;">
+
+<tr>
+<td> <a href="/IM/File:Warning.jpg" class="image"><img alt="Warning.jpg" src="/mediawiki/images/thumb/1/10/Warning.jpg/40px-Warning.jpg" width="40" height="40" srcset="/mediawiki/images/thumb/1/10/Warning.jpg/60px-Warning.jpg 1.5x, /mediawiki/images/thumb/1/10/Warning.jpg/80px-Warning.jpg 2x" /></a> </td>
+<td>  When upgrading views and making such changes/adaptations regarding the GROUP BY, it is important to compare the result set in both versions!
+</td></tr></table>
+<p>The MySQL way of using the GROUP BY can also be emulated by the <b>DISTINCT ON</b> in PostgreSQL. The <b>MySQL</b> query
+</p>
+<pre>
+SELECT a,b,c,d,e FROM table GROUP BY a
+</pre>
+<p>can be translated into the <b>PostgreSQL</b> query
+</p>
+<pre>
+SELECT DISTINCT ON (a) a,b,c,d,e FROM table ORDER BY a,b,c
+</pre>
+<h2><span class="mw-headline" id="Postgres_Tips_.26_Tricks">Postgres Tips &amp; Tricks</span></h2>
+<p>The following is a collection of useful PostgreSQL queries using special functions.
+</p>
+<h3><span class="mw-headline" id="String_manipulations">String manipulations</span></h3>
+<p><b>Concatenation</b>
+</p>
+<pre>
+SELECT hazard_localid||'----'||hazardname AS full_haz_desc
+FROM hazard;
+</pre>
+<p><b>Substring</b>
+</p>
+<pre>
+SELECT DISTINCT substr(hazreduc_localid, 1, 2)
+FROM hazreduc;
+</pre>
+<h3><span class="mw-headline" id="Rounding_numeric_values">Rounding numeric values</span></h3>
+<pre>
+SELECT round(areasize)
+FROM hazard;
+
+SELECT round(areasize, 2)
+FROM hazard;
+</pre>
+<h3><span class="mw-headline" id="Type_conversions">Type conversions</span></h3>
+<ul><li> to_char</li>
+<li> to_date</li>
+<li> to_timestamp</li>
+<li> to_number</li>
+<li> cast</li></ul>
+<pre>
+SELECT to_char(areasize, '9999999999')
+FROM hazard;
+
+SELECT cast(areasize as varchar)
+FROM hazard;
+</pre>
+<h3><span class="mw-headline" id="Query_for_duplicates">Query for duplicates</span></h3>
+<pre>
+SELECT hazard_localid, count(*)
+FROM hazard
+GROUP BY hazard_localid
+HAVING count(*) &gt; 1;
+</pre>
+<h3><span class="mw-headline" id="WITH_clause">WITH clause</span></h3>
+<p>Provides a very convenient way to write auxiliary statements for use in a larger query
+</p>
+<pre>
+WITH my_subquery1 AS (
+        SELECT *
+        FROM a
+     ), my_subquery2 AS (
+        SELECT *
+        FROM b
+     )
+SELECT *
+FROM my_subquery1
+WHERE my_subquery1.x IN (SELECT x FROM my_subquery2);
+
+</pre>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul><li> PostgreSQL 1.9.4 documentation: <a target="_blank" rel="nofollow noreferrer noopener" class="external free" href="http://www.postgresql.org/docs/9.1/static/index.html">http://www.postgresql.org/docs/9.1/static/index.html</a></li></ul>
+<table cellspacing="0" class="navbox" style="border-spacing:0;;"><tr><td style="padding:2px;"><table cellspacing="0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;;"><tr><th scope="col" style=";" class="navbox-title" colspan="2"><div class="" style="font-size:110%;">
+<a href="/IM/Portal:Technical_Notes" title="Portal:Technical Notes">Technical Notes Portal</a></div></th></tr><tr style="height:2px;"><td></td></tr><tr><th scope="row" class="navbox-group" style=";;"><a href="/IM/Portal:Technical_Notes/FAQ" title="Portal:Technical Notes/FAQ">Technical Notes</a></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;line-height:1.3em;;;" class="navbox-list navbox-odd"><div style="padding:0em 0.25em">
+</div><table cellspacing="0" class="nowraplinks navbox-subgroup" style="border-spacing:0;;;;"><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">FAQ</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+</div><table cellspacing="0" class="nowraplinks navbox-subgroup" style="border-spacing:0;;;;"><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">A - E</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/ArcEngine/Java_issue" title="ArcEngine/Java issue">ArcEngine/Java issue</a>&#160;· <a href="/IM/Combine_several_zip_files" title="Combine several zip files">Combine several zip files</a>&#160;· <a href="/IM/Create_ODBC_source" title="Create ODBC source">Create ODBC source</a>&#160;· <a href="/IM/Data_Dictionary" title="Data Dictionary">Data Dictionary</a>&#160;· <strong class="selflink"> Difference MySQL PostgreSQL</strong>&#160;· <a href="/IM/Delete_Non-functional_Saved_Search" title="Delete Non-functional Saved Search">Delete Non-functional Saved Search</a>&#160;· <a href="/IM/Empty_Reconciliation_Tab" title="Empty Reconciliation Tab">Empty Reconciliation Tab</a>&#160;· <a href="/IM/Environment_Variables" title="Environment Variables"> Environment variables used by IMSMA<sup>NG</sup></a>&#160;· <a href="/IM/Error_opening_Data_Entry_Form_Template" title="Error opening Data Entry Form Template">Error opening Data Entry Form Template</a>&#160;· <a href="/IM/Exporting_Part_of_Tree_Structure_from_IMSMANG" title="Exporting Part of Tree Structure from IMSMANG"> Exporting Part of Tree Structure from IMSMA<sup>NG</sup></a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">F - P</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Language_and_Translations" title="Language and Translations"> Font and language problems</a>&#160;· <a href="/IM/Installation_ODBC_driver" title="Installation ODBC driver"> Install ODBC driver</a>&#160;· <a href="/IM/Installation_package_for_IMSMA_NG_is_not_working" title="Installation package for IMSMA NG is not working"> Installation package NG is not working</a>&#160;· <a href="/IM/Installation_package_for_SAG_is_not_working" title="Installation package for SAG is not working"> Installation package SAG is not working</a>&#160;· <a href="/IM/IReport_does_not_start" title="IReport does not start"> iReport does not start</a>&#160;· <a href="/IM/Java_automatic_update" title="Java automatic update">Java automatic update</a>&#160;· <a href="/IM/Java_error_during_installation" title="Java error during installation">Java error during installation</a>&#160;· <a href="/IM/Language_Issues" title="Language Issues"> Language issues</a>&#160;· <a href="/IM/Manually_create_PGSQL_service" title="Manually create PGSQL service">Manually create PGSQL service</a>&#160;· <a href="/IM/Manually_delete_IMSMA_Remote_Entry_service" title="Manually delete IMSMA Remote Entry service">Manually delete IMSMA Remote Entry service</a>&#160;· <a href="/IM/Manually_delete_PGSQL_service" title="Manually delete PGSQL service">Manually delete PGSQL service</a>&#160;· <a href="/IM/Ports" title="Ports"> Ports used by is IMSMA</a>&#160;· <a href="/IM/Saved_Searches_6.0" title="Saved Searches 6.0"> Pre-defined Saved Searches</a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Q - Z</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Renamed_fields" title="Renamed fields">Renamed fields</a>&#160;· <a href="/IM/Shutdown_IMSMA_Server" title="Shutdown IMSMA Server">Shutdown IMSMA Server</a>&#160;· <a href="/IM/Start-up_IMSMA_Server" title="Start-up IMSMA Server">Start-up IMSMA Server</a>&#160;· <a href="/IM/Switch_Templates" title="Switch Templates">Switch Templates</a>&#160;· <a href="/IM/Technical_Specification_Equipment" title="Technical Specification Equipment"> Technical specifications for PC and tablets</a>&#160;· <a href="/IM/Templates_do_not_work_in_IMSMA_Remote_Entry" title="Templates do not work in IMSMA Remote Entry">Templates do not work in IMSMA Remote Entry</a>&#160;· <a href="/IM/Two_Terms_Not_to_be_Translated" title="Two Terms Not to be Translated">Two Terms Not to be Translated</a>&#160;· <a href="/IM/Not_Possible_to_Unapprove" title="Not Possible to Unapprove"> Unapprove does not work </a>&#160;· <a href="/IM/How_to_Unblock_IMSMA_server" title="How to Unblock IMSMA server"> Unblock IMSMA Server</a>&#160;· <a href="/IM/Check_Version_of_IMSMA" title="Check Version of IMSMA"> Which version of IMSMA<sup>NG</sup> is installed?</a>&#160;· <a href="/IM/Windows_8_and_Windows_10" title="Windows 8 and Windows 10"> Windows 8 and Windows 10</a>&#160;· <a href="/IM/XML_Documentation" title="XML Documentation">XML Documentation</a></div></td></tr></table><div></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Known issues</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Duplicate_Enumvalue" title="Duplicate Enumvalue">Duplicate Enumvalue</a>&#160;· <a href="/IM/Negative_Coordinates" title="Negative Coordinates">Negative Coordinates</a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Workarounds</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Export_from_ArcGIS_to_Excel" title="Export from ArcGIS to Excel">Export from ArcGIS to Excel</a>&#160;· <a href="/IM/How_to_Install_ArcEngine_10.1_with_Lower_or_Higher_Version_of_ArcGIS_Desktop" title="How to Install ArcEngine 10.1 with Lower or Higher Version of ArcGIS Desktop">How to Install ArcEngine 10.1 with Lower or Higher Version of ArcGIS Desktop</a>&#160;· <a href="/IM/Open_CSV_in_Excel" title="Open CSV in Excel">Open CSV in Excel</a>&#160;·  <a href="/IM/Using_non-translated_languages" title="Using non-translated languages">Using non-translated languages</a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Misc</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Downloads" title="Downloads">Downloads</a>&#160;· <a href="/IM/TeamViewer" title="TeamViewer">TeamViewer</a>&#160;· <a href="/IM/Uploads" title="Uploads">Uploads</a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Languages</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Arabic_page" title="Arabic page"> <b>الصفحة العربية</b></a>&#160;· <a href="/IM/French_page" title="French page"> Page française</a>&#160;· <a href="/IM/Russian_page" title="Russian page">страница России</a>&#160;· <a href="/IM/Spanish_page" title="Spanish page">Página español</a></div></td></tr><tr style="height:2px"><td></td></tr><tr><th scope="row" class="navbox-group" style=";padding-left:0em;padding-right:0em;;"><div style="padding:0em 0.75em;">Countries</div></th><td style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;;;" class="navbox-list navbox-"><div style="padding:">
+<a href="/IM/Colombia" title="Colombia">Colombia</a></div></td></tr></table><div></div></td></tr></table></td></tr></table>
+
+<!-- 
+NewPP limit report
+Cached time: 20180711231324
+Cache expiry: 86400
+Dynamic content: false
+Real time usage: 0.219 seconds
+Preprocessor visited node count: 1432/1000000
+Preprocessor generated node count: 9762/1000000
+Post‐expand include size: 49848/2097152 bytes
+Template argument size: 37939/2097152 bytes
+Highest expansion depth: 16/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+142.86%  156.250      3 - Template:Navbox
+100.00%  109.375      1 - -total
+ 85.71%   93.750      1 - Template:NavBox_Technical_Notes
+ 71.43%   78.125      2 - Template:Navbox_subgroup
+ 14.29%   15.625      1 - Template:TOC_right
+  0.00%    0.000      5 - Template:Note
+  0.00%    0.000      2 - Template:Warning
+  0.00%    0.000     12 - Template:IMSMANG
+-->
+
+<!-- Saved in parser cache with key my_wiki_280:pcache:idhash:2680-0!*!0!!en!5!* and timestamp 20180711231323 and revision id 20599
+ -->
+</div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="http://mwiki.gichd.org:8090/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;oldid=20599">http://mwiki.gichd.org:8090/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;oldid=20599</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/IM/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/IM/Category:NAA" title="Category:NAA">NAA</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/mediawiki/index.php?title=Special:UserLogin&amp;returnto=Difference+MySQL+PostGreSQL" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li><li id="pt-createaccount"><a href="/IM/Special:RequestAccount" title="You are encouraged to create an account and log in; however, it is not mandatory">Request account</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li  id="ca-nstab-main" class="selected"><span><a href="/IM/Difference_MySQL_PostGreSQL"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+															<li  id="ca-talk" class="new"><span><a href="/mediawiki/index.php?title=Talk:Difference_MySQL_PostGreSQL&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" rel="discussion">Discussion</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span><a href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="/IM/Difference_MySQL_PostGreSQL" >Read</a></span></li>
+															<li id="ca-viewsource"><span><a href="/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span><a href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/mediawiki/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search IMSMA Wiki" title="Search IMSMA Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/IM/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="/IM/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-recentchanges"><a href="/IM/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li><li id="n-randompage"><a href="/IM/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li><li id="n-Glossary"><a href="/IM/Glossary">Glossary</a></li><li id="n-Wiki-Policy"><a href="/IM/IMSMA_Wiki_Policies">Wiki Policy</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-Portals' aria-labelledby='p-Portals-label'>
+			<h3 id='p-Portals-label'>Portals</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-Using-IMSMA-NG"><a href="/IM/Portal:Using_IMSMA_NG">Using IMSMA NG</a></li><li id="n-IMSMA-NG-Administration"><a href="/IM/Portal:IMSMA_NG_Administration">IMSMA NG Administration</a></li><li id="n-IMSMA-Remote-Entry"><a href="/IM/Portal:Remote_Entry">IMSMA Remote Entry</a></li><li id="n-Business-Intelligence"><a href="/IM/Portal:Business_Intelligence">Business Intelligence</a></li><li id="n-GIS"><a href="/IM/Portal:GIS">GIS</a></li><li id="n-Technical-Notes"><a href="/IM/Portal:Technical_Notes">Technical Notes</a></li><li id="n-Training"><a href="/IM/Portal:Training">Training</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/IM/Special:WhatLinksHere/Difference_MySQL_PostGreSQL" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/IM/Special:RecentChangesLinked/Difference_MySQL_PostGreSQL" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="/IM/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;oldid=20599" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;action=info" title="More information about this page">Page information</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-coll-print_export' aria-labelledby='p-coll-print_export-label'>
+			<h3 id='p-coll-print_export-label'>Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="/mediawiki/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Difference+MySQL+PostGreSQL">Create a book</a></li><li id="coll-download-as-rl"><a href="/mediawiki/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Difference+MySQL+PostGreSQL&amp;returnto=Difference+MySQL+PostGreSQL&amp;oldid=20599&amp;writer=rl">Download as PDF</a></li><li id="t-print"><a href="/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 29 September 2015, at 20:56.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/IM/IMSMA_Wiki:Privacy_policy" title="IMSMA Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/IM/IMSMA_Wiki:About" title="IMSMA Wiki:About">About IMSMA Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="/IM/IMSMA_Wiki:General_disclaimer" title="IMSMA Wiki:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="http://mwiki.gichd.org:8090/mediawiki/index.php?title=Difference_MySQL_PostGreSQL&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/mediawiki/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/mediawiki/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /mediawiki/resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);});</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46314158-1', 'auto');
+  ga('set', 'anonymizeIp', true);
+  
+  ga('send', 'pageview');
+  
+  </script>
+  <script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":345});});</script>
+	</body>
+</html>
+D�.��0      [G.7[G.=?D�2       6    :http://mwiki.gichd.org/IM/Difference_MySQL_PostGreSQL necko:classified 1 strongly-framed 1 request-method GET request-Accept-Encoding gzip, deflate response-head HTTP/1.1 200 OK
+Cache-Control: private, must-revalidate, max-age=0
+Content-Type: text/html; charset=UTF-8
+Content-Language: en
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Last-Modified: Mon, 18 Jun 2018 12:14:08 GMT
+Vary: Accept-Encoding,Cookie
+Server: Microsoft-IIS/7.5
+X-Content-Type-Options: nosniff
+X-UA-Compatible: IE=Edge
+X-Powered-By: PHP/5.5.11, ARR/3.0, ASP.NET
+Date: Thu, 12 Jul 2018 10:32:23 GMT
+Content-Length: 47697
+ original-response-headers Cache-Control: private, must-revalidate, max-age=0
+Keep-Alive: timeout=5, max=100
+Content-Type: text/html; charset=UTF-8
+Content-Language: en
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Last-Modified: Mon, 18 Jun 2018 12:14:08 GMT
+Vary: Accept-Encoding,Cookie
+Server: Microsoft-IIS/7.5
+X-Powered-By: PHP/5.5.11
+X-Content-Type-Options: nosniff
+X-UA-Compatible: IE=Edge
+X-Powered-By: ARR/3.0
+X-Powered-By: ASP.NET
+Date: Thu, 12 Jul 2018 10:32:23 GMT
+Content-Length: 47697
+ uncompressed-len 0 predictor::resource-count 13 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&only=styles&skin=vector 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=startup&only=scripts&skin=vector 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=site.styles&only=styles&skin=vector 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/images/thumb/1/10/Warning.jpg/40px-Warning.jpg 1,1,1531391543,4097 predictor::http://mwiki.gichd.org/mediawiki/images/thumb/9/90/Note.jpg/40px-Note.jpg 1,1,1531391543,4097 net-response-time-onstart 2189 net-response-time-onstop 2218 predictor::http://mwiki.gichd.org/mediawiki/resources/assets/poweredby_mediawiki_88x31.png 1,1,1531391543,4097 predictor::http://mwiki.gichd.org/mediawiki/skins/Vector/images/tab-break-black.jpg?6e85c 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/images/0/05/IMSMA_Logo_2013_resized.png?7a19e 1,1,1531391543,4096 predictor::http://www.google-analytics.com/analytics.js 1,1,1531391543,4096 predictor::http://www.google-analytics.com/r/collect?v=1&_v=j68&aip=1&a=1742602553&t=pageview&_s=1&dl=http%3A%2F%2Fmwiki.gichd.org%2FIM%2FDifference_MySQL_PostGreSQL&dr=https%3A%2F%2Fwww.google.com%2F&ul=en-us&de=UTF-8&dt=Difference%20MySQL%20PostGreSQL%20-%20IMSMA%20Wiki&sd=24-bit&sr=1366x768&vp=1291x670&je=0&_u=YEBAAEAB~&jid=1464778889&gjid=72005447&cid=1810565732.1531391547&tid=UA-46314158-1&_gid=1704370274.1531391547&_r=1&z=75026854 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=jquery%2Cmediawiki&only=scripts&skin=vector&version=11kdaky 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=jquery.accessKeyLabel%2Cclient%2CtabIndex%2Cthrottle-debounce%7Cmediawiki.RegExp%2Cnotify%2Cutil%7Cmediawiki.page.startup%7Cskins.vector.js&skin=vector&version=16l3wfa 1,1,1531391543,4096 predictor::http://mwiki.gichd.org/mediawiki/load.php?debug=false&lang=en&modules=jquery.checkboxShiftClick%2Ccookie%2CgetAttrs%2ChighlightText%2CmakeCollapsible%2Cmw-jump%2Cplaceholder%2Csuggestions%7Cmediawiki.action.view.postEdit%7Cmediawiki.api%2Ccldr%2Ccookie%2CjqueryMsg%2Clanguage%2CsearchSuggest%2Ctemplate%2Ctoc%2Cuser%7Cmediawiki.api.user%7Cmediawiki.language.data%2Cinit%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Csite%7Cuser.defaults&skin=vector&version=171359t 1,1,1531391543,4096   �Q

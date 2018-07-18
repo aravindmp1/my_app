@@ -1,0 +1,22 @@
+  def text(string1)
+    text=string1.split
+    b=Array.new(text)
+    puts b
+    k=b.length
+	puts k
+    #l=text.length
+    #n=l-1
+	d=0
+	for i in 0..k
+		for j in i+1..k
+			if b[i]==b[j]
+			  d=d+1
+			end
+		end
+	end
+	puts d    
+  end
+string1=gets
+#b=Array.new(string1)
+text(string1)
+

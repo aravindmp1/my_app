@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<compiz_session id="102483807be7be361b153145785389015600000020020047">
+  <window id="102483807be7be361b153146098677999800000020020050" title="dec-2_5.odt - LibreOffice Writer" class="libreoffice-writer" name="libreoffice" command="soffice">
+    <geometry x="87" y="30" width="1251" height="716"/>
+    <workspace index="0"/>
+  </window>
+  <window id="102483807be7be361b153146098677999800000020020050" title="POSGRESQL.odt - LibreOffice Writer" class="libreoffice-writer" name="libreoffice" command="soffice">
+    <geometry x="65" y="24" width="1251" height="744"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+  <window id="102483807be7be361b153145795267241000000020020049" title="aravindmp1/mywork - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="73" y="-28" width="1269" height="663"/>
+    <maximized vert="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

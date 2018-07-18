@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<compiz_session id="1018609057ebb6e24c153119818546935200000019460047">
+  <window id="1018609057ebb6e24c153120129015474500000019460051" title="Untitled 1 - LibreOffice Writer" class="libreoffice-writer" name="libreoffice" command="soffice">
+    <geometry x="65" y="51" width="1251" height="716"/>
+    <workspace index="0"/>
+  </window>
+  <window id="1018609057ebb6e24c153119834399551300000019460050" title="(no subject) - h.aravind1996@gmail.com - Gmail - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="65" y="24" width="1170" height="613"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+  <window id="1018609057ebb6e24c153119834399551300000019460050" title="Publisher: RSpec - Relish - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="196" y="155" width="1170" height="613"/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

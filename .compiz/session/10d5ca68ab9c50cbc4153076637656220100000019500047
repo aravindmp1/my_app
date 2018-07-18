@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<compiz_session id="10d5ca68ab9c50cbc4153076637656220100000019500047">
+  <window id="10d5ca68ab9c50cbc4153076642050674800000019500049" title="GitHub Enterprise - The best way to build and ship software - Mozilla Firefox" class="Firefox" name="Navigator" role="browser" command="firefox">
+    <geometry x="65" y="24" width="1301" height="744"/>
+    <minimized/>
+    <maximized vert="yes" horz="yes"/>
+    <workspace index="0"/>
+  </window>
+</compiz_session>

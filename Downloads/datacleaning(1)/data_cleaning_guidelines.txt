@@ -1,0 +1,41 @@
+*) spell check and correct the words
+*) convert short forms like 
+	im -> i'm
+	i m -> i'm
+	i am -> i'm
+	n -> and
+	& -> and
+	shud -> should
+	ppl -> people
+	rep -> representative
+	repr -> representative
+	frm -> from
+	u -> you
+	ur -> your
+	ntwrk -> network
+	pls/plz -> please
+	Vodaphone -> vodafone
+*) remove lines containing (noises)
+	-> hindi comments represented in english
+	-> contextually doesnt make sense
+	-> noise data like "006D007900200073006F006E00200076006900730069007400650064002000730074006F007200650020006C006100730074002000530061007400750072006400610079002000320030002F00310032002F00310034002000620063006F007A002000680065002000730065006C0066002000720065006300680061007200670065006400200031003A004D00690073006D0061006E006100670065006D0065006E0074000A0032003A006E006F00200066006F006C006C006F007700200075007000730020000A0033003A006E006F0074002000770065006C006C00200074007200610069006E006500640020000A000A004C0069006B006500200066006F0072002000650067003A0020"
+	-> remove "_XX" in comments
+	-> question number and rating like (Q3-8)
+*) convert Mr. Sujoy Basu or ms.Farhana to Mr. __person__ or ms. __person__
+*) convert contact number or phone number to __phonenumber__
+*) convert count like 
+	-> "2 hours" to "__count__ hours"
+	-> "3 times" to "__count__ times". 
+	-> "2 yrs" to "__count__ years"
+	-> convert any contextually quantifiable data to __count__
+*) convert dates like 3/6/2017 or 3-4-2017 to __date__
+*) convert time like 2 p.m or 11 am to __time__
+*) convert mon,tue,wed etc to __day__
+*) convert jan,feb,mar,april etc to __month__
+*) convert denominations like 200rs to __amount__
+*) convert address to __loc__ like 
+	-> "store at ghatkopar" to "store at __loc__"
+	-> "store at Prabhadevi, Mumbai" to "store at __loc__"
+*) convert "someone@emailid.com" to __emailid__
+*) convert sentence containing rating count to __rating__
+	-> like "texted 0 by mistake, I meant 9" to "texted __rating__ by mistake, I meant __rating__"

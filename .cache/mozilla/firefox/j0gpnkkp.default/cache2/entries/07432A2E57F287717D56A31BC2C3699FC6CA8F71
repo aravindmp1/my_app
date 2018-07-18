@@ -1,0 +1,945 @@
+(function($, undefined) {
+
+/**
+ * Unobtrusive scripting adapter for jQuery
+ * https://github.com/rails/jquery-ujs
+ *
+ * Requires jQuery 1.8.0 or later.
+ *
+ * Released under the MIT license
+ *
+ */
+
+  // Cut down on the number of issues from people inadvertently including jquery_ujs twice
+  // by detecting and raising an error when it happens.
+  if ( $.rails !== undefined ) {
+    $.error('jquery-ujs has already been loaded!');
+  }
+
+  // Shorthand to make it a little easier to call public rails functions from within rails.js
+  var rails;
+  var $document = $(document);
+
+  $.rails = rails = {
+    // Link elements bound by jquery-ujs
+    linkClickSelector: 'a[data-confirm], a[data-method], a[data-remote], a[data-disable-with], a[data-disable]',
+
+    // Button elements bound by jquery-ujs
+    buttonClickSelector: 'button[data-remote]:not(form button), button[data-confirm]:not(form button)',
+
+    // Select elements bound by jquery-ujs
+    inputChangeSelector: 'select[data-remote], input[data-remote], textarea[data-remote]',
+
+    // Form elements bound by jquery-ujs
+    formSubmitSelector: 'form',
+
+    // Form input elements bound by jquery-ujs
+    formInputClickSelector: 'form input[type=submit], form input[type=image], form button[type=submit], form button:not([type]), input[type=submit][form], input[type=image][form], button[type=submit][form], button[form]:not([type])',
+
+    // Form input elements disabled during form submission
+    disableSelector: 'input[data-disable-with]:enabled, button[data-disable-with]:enabled, textarea[data-disable-with]:enabled, input[data-disable]:enabled, button[data-disable]:enabled, textarea[data-disable]:enabled',
+
+    // Form input elements re-enabled after form submission
+    enableSelector: 'input[data-disable-with]:disabled, button[data-disable-with]:disabled, textarea[data-disable-with]:disabled, input[data-disable]:disabled, button[data-disable]:disabled, textarea[data-disable]:disabled',
+
+    // Form required input elements
+    requiredInputSelector: 'input[name][required]:not([disabled]),textarea[name][required]:not([disabled])',
+
+    // Form file input elements
+    fileInputSelector: 'input[type=file]',
+
+    // Link onClick disable selector with possible reenable after remote submission
+    linkDisableSelector: 'a[data-disable-with], a[data-disable]',
+
+    // Button onClick disable selector with possible reenable after remote submission
+    buttonDisableSelector: 'button[data-remote][data-disable-with], button[data-remote][data-disable]',
+
+    // Make sure that every Ajax request sends the CSRF token
+    CSRFProtection: function(xhr) {
+      var token = $('meta[name="csrf-token"]').attr('content');
+      if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+    },
+
+    // making sure that all forms have actual up-to-date token(cached forms contain old one)
+    refreshCSRFTokens: function(){
+      var csrfToken = $('meta[name=csrf-token]').attr('content');
+      var csrfParam = $('meta[name=csrf-param]').attr('content');
+      $('form input[name="' + csrfParam + '"]').val(csrfToken);
+    },
+
+    // Triggers an event on an element and returns false if the event result is false
+    fire: function(obj, name, data) {
+      var event = $.Event(name);
+      obj.trigger(event, data);
+      return event.result !== false;
+    },
+
+    // Default confirm dialog, may be overridden with custom confirm dialog in $.rails.confirm
+    confirm: function(message) {
+      return confirm(message);
+    },
+
+    // Default ajax function, may be overridden with custom function in $.rails.ajax
+    ajax: function(options) {
+      return $.ajax(options);
+    },
+
+    // Default way to get an element's href. May be overridden at $.rails.href.
+    href: function(element) {
+      return element.attr('href');
+    },
+
+    // Submits "remote" forms and links with ajax
+    handleRemote: function(element) {
+      var method, url, data, elCrossDomain, crossDomain, withCredentials, dataType, options;
+
+      if (rails.fire(element, 'ajax:before')) {
+        elCrossDomain = element.data('cross-domain');
+        crossDomain = elCrossDomain === undefined ? null : elCrossDomain;
+        withCredentials = element.data('with-credentials') || null;
+        dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType);
+
+        if (element.is('form')) {
+          method = element.attr('method');
+          url = element.attr('action');
+          data = element.serializeArray();
+          // memoized value from clicked submit button
+          var button = element.data('ujs:submit-button');
+          if (button) {
+            data.push(button);
+            element.data('ujs:submit-button', null);
+          }
+        } else if (element.is(rails.inputChangeSelector)) {
+          method = element.data('method');
+          url = element.data('url');
+          data = element.serialize();
+          if (element.data('params')) data = data + "&" + element.data('params');
+        } else if (element.is(rails.buttonClickSelector)) {
+          method = element.data('method') || 'get';
+          url = element.data('url');
+          data = element.serialize();
+          if (element.data('params')) data = data + "&" + element.data('params');
+        } else {
+          method = element.data('method');
+          url = rails.href(element);
+          data = element.data('params') || null;
+        }
+
+        options = {
+          type: method || 'GET', data: data, dataType: dataType,
+          // stopping the "ajax:beforeSend" event will cancel the ajax request
+          beforeSend: function(xhr, settings) {
+            if (settings.dataType === undefined) {
+              xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            }
+            if (rails.fire(element, 'ajax:beforeSend', [xhr, settings])) {
+              element.trigger('ajax:send', xhr);
+            } else {
+              return false;
+            }
+          },
+          success: function(data, status, xhr) {
+            element.trigger('ajax:success', [data, status, xhr]);
+          },
+          complete: function(xhr, status) {
+            element.trigger('ajax:complete', [xhr, status]);
+          },
+          error: function(xhr, status, error) {
+            element.trigger('ajax:error', [xhr, status, error]);
+          },
+          crossDomain: crossDomain
+        };
+
+        // There is no withCredentials for IE6-8 when
+        // "Enable native XMLHTTP support" is disabled
+        if (withCredentials) {
+          options.xhrFields = {
+            withCredentials: withCredentials
+          };
+        }
+
+        // Only pass url to `ajax` options if not blank
+        if (url) { options.url = url; }
+
+        return rails.ajax(options);
+      } else {
+        return false;
+      }
+    },
+
+    // Handles "data-method" on links such as:
+    // <a href="/users/5" data-method="delete" rel="nofollow" data-confirm="Are you sure?">Delete</a>
+    handleMethod: function(link) {
+      var href = rails.href(link),
+        method = link.data('method'),
+        target = link.attr('target'),
+        csrfToken = $('meta[name=csrf-token]').attr('content'),
+        csrfParam = $('meta[name=csrf-param]').attr('content'),
+        form = $('<form method="post" action="' + href + '"></form>'),
+        metadataInput = '<input name="_method" value="' + method + '" type="hidden" />';
+
+      if (csrfParam !== undefined && csrfToken !== undefined) {
+        metadataInput += '<input name="' + csrfParam + '" value="' + csrfToken + '" type="hidden" />';
+      }
+
+      if (target) { form.attr('target', target); }
+
+      form.hide().append(metadataInput).appendTo('body');
+      form.submit();
+    },
+
+    // Helper function that returns form elements that match the specified CSS selector
+    // If form is actually a "form" element this will return associated elements outside the from that have
+    // the html form attribute set
+    formElements: function(form, selector) {
+      return form.is('form') ? $(form[0].elements).filter(selector) : form.find(selector);
+    },
+
+    /* Disables form elements:
+      - Caches element value in 'ujs:enable-with' data store
+      - Replaces element text with value of 'data-disable-with' attribute
+      - Sets disabled property to true
+    */
+    disableFormElements: function(form) {
+      rails.formElements(form, rails.disableSelector).each(function() {
+        rails.disableFormElement($(this));
+      });
+    },
+
+    disableFormElement: function(element) {
+      var method, replacement;
+
+      method = element.is('button') ? 'html' : 'val';
+      replacement = element.data('disable-with');
+
+      element.data('ujs:enable-with', element[method]());
+      if (replacement !== undefined) {
+        element[method](replacement);
+      }
+
+      element.prop('disabled', true);
+    },
+
+    /* Re-enables disabled form elements:
+      - Replaces element text with cached value from 'ujs:enable-with' data store (created in `disableFormElements`)
+      - Sets disabled property to false
+    */
+    enableFormElements: function(form) {
+      rails.formElements(form, rails.enableSelector).each(function() {
+        rails.enableFormElement($(this));
+      });
+    },
+
+    enableFormElement: function(element) {
+      var method = element.is('button') ? 'html' : 'val';
+      if (element.data('ujs:enable-with')) element[method](element.data('ujs:enable-with'));
+      element.prop('disabled', false);
+    },
+
+   /* For 'data-confirm' attribute:
+      - Fires `confirm` event
+      - Shows the confirmation dialog
+      - Fires the `confirm:complete` event
+
+      Returns `true` if no function stops the chain and user chose yes; `false` otherwise.
+      Attaching a handler to the element's `confirm` event that returns a `falsy` value cancels the confirmation dialog.
+      Attaching a handler to the element's `confirm:complete` event that returns a `falsy` value makes this function
+      return false. The `confirm:complete` event is fired whether or not the user answered true or false to the dialog.
+   */
+    allowAction: function(element) {
+      var message = element.data('confirm'),
+          answer = false, callback;
+      if (!message) { return true; }
+
+      if (rails.fire(element, 'confirm')) {
+        answer = rails.confirm(message);
+        callback = rails.fire(element, 'confirm:complete', [answer]);
+      }
+      return answer && callback;
+    },
+
+    // Helper function which checks for blank inputs in a form that match the specified CSS selector
+    blankInputs: function(form, specifiedSelector, nonBlank) {
+      var inputs = $(), input, valueToCheck,
+          selector = specifiedSelector || 'input,textarea',
+          allInputs = form.find(selector);
+
+      allInputs.each(function() {
+        input = $(this);
+        valueToCheck = input.is('input[type=checkbox],input[type=radio]') ? input.is(':checked') : input.val();
+        // If nonBlank and valueToCheck are both truthy, or nonBlank and valueToCheck are both falsey
+        if (!valueToCheck === !nonBlank) {
+
+          // Don't count unchecked required radio if other radio with same name is checked
+          if (input.is('input[type=radio]') && allInputs.filter('input[type=radio]:checked[name="' + input.attr('name') + '"]').length) {
+            return true; // Skip to next input
+          }
+
+          inputs = inputs.add(input);
+        }
+      });
+      return inputs.length ? inputs : false;
+    },
+
+    // Helper function which checks for non-blank inputs in a form that match the specified CSS selector
+    nonBlankInputs: function(form, specifiedSelector) {
+      return rails.blankInputs(form, specifiedSelector, true); // true specifies nonBlank
+    },
+
+    // Helper function, needed to provide consistent behavior in IE
+    stopEverything: function(e) {
+      $(e.target).trigger('ujs:everythingStopped');
+      e.stopImmediatePropagation();
+      return false;
+    },
+
+    //  replace element's html with the 'data-disable-with' after storing original html
+    //  and prevent clicking on it
+    disableElement: function(element) {
+      var replacement = element.data('disable-with');
+
+      element.data('ujs:enable-with', element.html()); // store enabled state
+      if (replacement !== undefined) {
+        element.html(replacement);
+      }
+
+      element.bind('click.railsDisable', function(e) { // prevent further clicking
+        return rails.stopEverything(e);
+      });
+    },
+
+    // restore element to its original state which was disabled by 'disableElement' above
+    enableElement: function(element) {
+      if (element.data('ujs:enable-with') !== undefined) {
+        element.html(element.data('ujs:enable-with')); // set to old enabled state
+        element.removeData('ujs:enable-with'); // clean up cache
+      }
+      element.unbind('click.railsDisable'); // enable element
+    }
+  };
+
+  if (rails.fire($document, 'rails:attachBindings')) {
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr){ if ( !options.crossDomain ) { rails.CSRFProtection(xhr); }});
+
+    $document.delegate(rails.linkDisableSelector, 'ajax:complete', function() {
+        rails.enableElement($(this));
+    });
+
+    $document.delegate(rails.buttonDisableSelector, 'ajax:complete', function() {
+        rails.enableFormElement($(this));
+    });
+
+    $document.delegate(rails.linkClickSelector, 'click.rails', function(e) {
+      var link = $(this), method = link.data('method'), data = link.data('params'), metaClick = e.metaKey || e.ctrlKey;
+      if (!rails.allowAction(link)) return rails.stopEverything(e);
+
+      if (!metaClick && link.is(rails.linkDisableSelector)) rails.disableElement(link);
+
+      if (link.data('remote') !== undefined) {
+        if (metaClick && (!method || method === 'GET') && !data) { return true; }
+
+        var handleRemote = rails.handleRemote(link);
+        // response from rails.handleRemote() will either be false or a deferred object promise.
+        if (handleRemote === false) {
+          rails.enableElement(link);
+        } else {
+          handleRemote.error( function() { rails.enableElement(link); } );
+        }
+        return false;
+
+      } else if (link.data('method')) {
+        rails.handleMethod(link);
+        return false;
+      }
+    });
+
+    $document.delegate(rails.buttonClickSelector, 'click.rails', function(e) {
+      var button = $(this);
+
+      if (!rails.allowAction(button)) return rails.stopEverything(e);
+
+      if (button.is(rails.buttonDisableSelector)) rails.disableFormElement(button);
+
+      var handleRemote = rails.handleRemote(button);
+      // response from rails.handleRemote() will either be false or a deferred object promise.
+      if (handleRemote === false) {
+        rails.enableFormElement(button);
+      } else {
+        handleRemote.error( function() { rails.enableFormElement(button); } );
+      }
+      return false;
+    });
+
+    $document.delegate(rails.inputChangeSelector, 'change.rails', function(e) {
+      var link = $(this);
+      if (!rails.allowAction(link)) return rails.stopEverything(e);
+
+      rails.handleRemote(link);
+      return false;
+    });
+
+    $document.delegate(rails.formSubmitSelector, 'submit.rails', function(e) {
+      var form = $(this),
+        remote = form.data('remote') !== undefined,
+        blankRequiredInputs,
+        nonBlankFileInputs;
+
+      if (!rails.allowAction(form)) return rails.stopEverything(e);
+
+      // skip other logic when required values are missing or file upload is present
+      if (form.attr('novalidate') == undefined) {
+        blankRequiredInputs = rails.blankInputs(form, rails.requiredInputSelector);
+        if (blankRequiredInputs && rails.fire(form, 'ajax:aborted:required', [blankRequiredInputs])) {
+          return rails.stopEverything(e);
+        }
+      }
+
+      if (remote) {
+        nonBlankFileInputs = rails.nonBlankInputs(form, rails.fileInputSelector);
+        if (nonBlankFileInputs) {
+          // slight timeout so that the submit button gets properly serialized
+          // (make it easy for event handler to serialize form without disabled values)
+          setTimeout(function(){ rails.disableFormElements(form); }, 13);
+          var aborted = rails.fire(form, 'ajax:aborted:file', [nonBlankFileInputs]);
+
+          // re-enable form elements if event bindings return false (canceling normal form submission)
+          if (!aborted) { setTimeout(function(){ rails.enableFormElements(form); }, 13); }
+
+          return aborted;
+        }
+
+        rails.handleRemote(form);
+        return false;
+
+      } else {
+        // slight timeout so that the submit button gets properly serialized
+        setTimeout(function(){ rails.disableFormElements(form); }, 13);
+      }
+    });
+
+    $document.delegate(rails.formInputClickSelector, 'click.rails', function(event) {
+      var button = $(this);
+
+      if (!rails.allowAction(button)) return rails.stopEverything(event);
+
+      // register the pressed submit button
+      var name = button.attr('name'),
+        data = name ? {name:name, value:button.val()} : null;
+
+      button.closest('form').data('ujs:submit-button', data);
+    });
+
+    $document.delegate(rails.formSubmitSelector, 'ajax:send.rails', function(event) {
+      if (this == event.target) rails.disableFormElements($(this));
+    });
+
+    $document.delegate(rails.formSubmitSelector, 'ajax:complete.rails', function(event) {
+      if (this == event.target) rails.enableFormElements($(this));
+    });
+
+    $(function(){
+      rails.refreshCSRFTokens();
+    });
+  }
+
+})( jQuery );
+        20180313132747                                          @  fD      ( f u n c t i o n ( $ ,   u n d e f i n e d )   { 
+ 
+ / * * 
+   *   U n o b t r u s i v e   s c r i p t i n g   a d a p t e r   f o r   j Q u e r y 
+   *   h t t p s : / / g i t h u b . c o m / r a i l s / j q u e r y - u j s 
+   * 
+   *   R e q u i r e s   j Q u e r y   1 . 8 . 0   o r   l a t e r . 
+   * 
+   *   R e l e a s e d   u n d e r   t h e   M I T   l i c e n s e 
+   * 
+   * / 
+ 
+     / /   C u t   d o w n   o n   t h e   n u m b e r   o f   i s s u e s   f r o m   p e o p l e   i n a d v e r t e n t l y   i n c l u d i n g   j q u e r y _ u j s   t w i c e 
+     / /   b y   d e t e c t i n g   a n d   r a i s i n g   a n   e r r o r   w h e n   i t   h a p p e n s . 
+     i f   (   $ . r a i l s   ! = =   u n d e f i n e d   )   { 
+         $ . e r r o r ( ' j q u e r y - u j s   h a s   a l r e a d y   b e e n   l o a d e d ! ' ) ; 
+     } 
+ 
+     / /   S h o r t h a n d   t o   m a k e   i t   a   l i t t l e   e a s i e r   t o   c a l l   p u b l i c   r a i l s   f u n c t i o n s   f r o m   w i t h i n   r a i l s . j s 
+     v a r   r a i l s ; 
+     v a r   $ d o c u m e n t   =   $ ( d o c u m e n t ) ; 
+ 
+     $ . r a i l s   =   r a i l s   =   { 
+         / /   L i n k   e l e m e n t s   b o u n d   b y   j q u e r y - u j s 
+         l i n k C l i c k S e l e c t o r :   ' a [ d a t a - c o n f i r m ] ,   a [ d a t a - m e t h o d ] ,   a [ d a t a - r e m o t e ] ,   a [ d a t a - d i s a b l e - w i t h ] ,   a [ d a t a - d i s a b l e ] ' , 
+ 
+         / /   B u t t o n   e l e m e n t s   b o u n d   b y   j q u e r y - u j s 
+         b u t t o n C l i c k S e l e c t o r :   ' b u t t o n [ d a t a - r e m o t e ] : n o t ( f o r m   b u t t o n ) ,   b u t t o n [ d a t a - c o n f i r m ] : n o t ( f o r m   b u t t o n ) ' , 
+ 
+         / /   S e l e c t   e l e m e n t s   b o u n d   b y   j q u e r y - u j s 
+         i n p u t C h a n g e S e l e c t o r :   ' s e l e c t [ d a t a - r e m o t e ] ,   i n p u t [ d a t a - r e m o t e ] ,   t e x t a r e a [ d a t a - r e m o t e ] ' , 
+ 
+         / /   F o r m   e l e m e n t s   b o u n d   b y   j q u e r y - u j s 
+         f o r m S u b m i t S e l e c t o r :   ' f o r m ' , 
+ 
+         / /   F o r m   i n p u t   e l e m e n t s   b o u n d   b y   j q u e r y - u j s 
+         f o r m I n p u t C l i c k S e l e c t o r :   ' f o r m   i n p u t [ t y p e = s u b m i t ] ,   f o r m   i n p u t [ t y p e = i m a g e ] ,   f o r m   b u t t o n [ t y p e = s u b m i t ] ,   f o r m   b u t t o n : n o t ( [ t y p e ] ) ,   i n p u t [ t y p e = s u b m i t ] [ f o r m ] ,   i n p u t [ t y p e = i m a g e ] [ f o r m ] ,   b u t t o n [ t y p e = s u b m i t ] [ f o r m ] ,   b u t t o n [ f o r m ] : n o t ( [ t y p e ] ) ' , 
+ 
+         / /   F o r m   i n p u t   e l e m e n t s   d i s a b l e d   d u r i n g   f o r m   s u b m i s s i o n 
+         d i s a b l e S e l e c t o r :   ' i n p u t [ d a t a - d i s a b l e - w i t h ] : e n a b l e d ,   b u t t o n [ d a t a - d i s a b l e - w i t h ] : e n a b l e d ,   t e x t a r e a [ d a t a - d i s a b l e - w i t h ] : e n a b l e d ,   i n p u t [ d a t a - d i s a b l e ] : e n a b l e d ,   b u t t o n [ d a t a - d i s a b l e ] : e n a b l e d ,   t e x t a r e a [ d a t a - d i s a b l e ] : e n a b l e d ' , 
+ 
+         / /   F o r m   i n p u t   e l e m e n t s   r e - e n a b l e d   a f t e r   f o r m   s u b m i s s i o n 
+         e n a b l e S e l e c t o r :   ' i n p u t [ d a t a - d i s a b l e - w i t h ] : d i s a b l e d ,   b u t t o n [ d a t a - d i s a b l e - w i t h ] : d i s a b l e d ,   t e x t a r e a [ d a t a - d i s a b l e - w i t h ] : d i s a b l e d ,   i n p u t [ d a t a - d i s a b l e ] : d i s a b l e d ,   b u t t o n [ d a t a - d i s a b l e ] : d i s a b l e d ,   t e x t a r e a [ d a t a - d i s a b l e ] : d i s a b l e d ' , 
+ 
+         / /   F o r m   r e q u i r e d   i n p u t   e l e m e n t s 
+         r e q u i r e d I n p u t S e l e c t o r :   ' i n p u t [ n a m e ] [ r e q u i r e d ] : n o t ( [ d i s a b l e d ] ) , t e x t a r e a [ n a m e ] [ r e q u i r e d ] : n o t ( [ d i s a b l e d ] ) ' , 
+ 
+         / /   F o r m   f i l e   i n p u t   e l e m e n t s 
+         f i l e I n p u t S e l e c t o r :   ' i n p u t [ t y p e = f i l e ] ' , 
+ 
+         / /   L i n k   o n C l i c k   d i s a b l e   s e l e c t o r   w i t h   p o s s i b l e   r e e n a b l e   a f t e r   r e m o t e   s u b m i s s i o n 
+         l i n k D i s a b l e S e l e c t o r :   ' a [ d a t a - d i s a b l e - w i t h ] ,   a [ d a t a - d i s a b l e ] ' , 
+ 
+         / /   B u t t o n   o n C l i c k   d i s a b l e   s e l e c t o r   w i t h   p o s s i b l e   r e e n a b l e   a f t e r   r e m o t e   s u b m i s s i o n 
+         b u t t o n D i s a b l e S e l e c t o r :   ' b u t t o n [ d a t a - r e m o t e ] [ d a t a - d i s a b l e - w i t h ] ,   b u t t o n [ d a t a - r e m o t e ] [ d a t a - d i s a b l e ] ' , 
+ 
+         / /   M a k e   s u r e   t h a t   e v e r y   A j a x   r e q u e s t   s e n d s   t h e   C S R F   t o k e n 
+         C S R F P r o t e c t i o n :   f u n c t i o n ( x h r )   { 
+             v a r   t o k e n   =   $ ( ' m e t a [ n a m e = " c s r f - t o k e n " ] ' ) . a t t r ( ' c o n t e n t ' ) ; 
+             i f   ( t o k e n )   x h r . s e t R e q u e s t H e a d e r ( ' X - C S R F - T o k e n ' ,   t o k e n ) ; 
+         } , 
+ 
+         / /   m a k i n g   s u r e   t h a t   a l l   f o r m s   h a v e   a c t u a l   u p - t o - d a t e   t o k e n ( c a c h e d   f o r m s   c o n t a i n   o l d   o n e ) 
+         r e f r e s h C S R F T o k e n s :   f u n c t i o n ( ) { 
+             v a r   c s r f T o k e n   =   $ ( ' m e t a [ n a m e = c s r f - t o k e n ] ' ) . a t t r ( ' c o n t e n t ' ) ; 
+             v a r   c s r f P a r a m   =   $ ( ' m e t a [ n a m e = c s r f - p a r a m ] ' ) . a t t r ( ' c o n t e n t ' ) ; 
+             $ ( ' f o r m   i n p u t [ n a m e = " '   +   c s r f P a r a m   +   ' " ] ' ) . v a l ( c s r f T o k e n ) ; 
+         } , 
+ 
+         / /   T r i g g e r s   a n   e v e n t   o n   a n   e l e m e n t   a n d   r e t u r n s   f a l s e   i f   t h e   e v e n t   r e s u l t   i s   f a l s e 
+         f i r e :   f u n c t i o n ( o b j ,   n a m e ,   d a t a )   { 
+             v a r   e v e n t   =   $ . E v e n t ( n a m e ) ; 
+             o b j . t r i g g e r ( e v e n t ,   d a t a ) ; 
+             r e t u r n   e v e n t . r e s u l t   ! = =   f a l s e ; 
+         } , 
+ 
+         / /   D e f a u l t   c o n f i r m   d i a l o g ,   m a y   b e   o v e r r i d d e n   w i t h   c u s t o m   c o n f i r m   d i a l o g   i n   $ . r a i l s . c o n f i r m 
+         c o n f i r m :   f u n c t i o n ( m e s s a g e )   { 
+             r e t u r n   c o n f i r m ( m e s s a g e ) ; 
+         } , 
+ 
+         / /   D e f a u l t   a j a x   f u n c t i o n ,   m a y   b e   o v e r r i d d e n   w i t h   c u s t o m   f u n c t i o n   i n   $ . r a i l s . a j a x 
+         a j a x :   f u n c t i o n ( o p t i o n s )   { 
+             r e t u r n   $ . a j a x ( o p t i o n s ) ; 
+         } , 
+ 
+         / /   D e f a u l t   w a y   t o   g e t   a n   e l e m e n t ' s   h r e f .   M a y   b e   o v e r r i d d e n   a t   $ . r a i l s . h r e f . 
+         h r e f :   f u n c t i o n ( e l e m e n t )   { 
+             r e t u r n   e l e m e n t . a t t r ( ' h r e f ' ) ; 
+         } , 
+ 
+         / /   S u b m i t s   " r e m o t e "   f o r m s   a n d   l i n k s   w i t h   a j a x 
+         h a n d l e R e m o t e :   f u n c t i o n ( e l e m e n t )   { 
+             v a r   m e t h o d ,   u r l ,   d a t a ,   e l C r o s s D o m a i n ,   c r o s s D o m a i n ,   w i t h C r e d e n t i a l s ,   d a t a T y p e ,   o p t i o n s ; 
+ 
+             i f   ( r a i l s . f i r e ( e l e m e n t ,   ' a j a x : b e f o r e ' ) )   { 
+                 e l C r o s s D o m a i n   =   e l e m e n t . d a t a ( ' c r o s s - d o m a i n ' ) ; 
+                 c r o s s D o m a i n   =   e l C r o s s D o m a i n   = = =   u n d e f i n e d   ?   n u l l   :   e l C r o s s D o m a i n ; 
+                 w i t h C r e d e n t i a l s   =   e l e m e n t . d a t a ( ' w i t h - c r e d e n t i a l s ' )   | |   n u l l ; 
+                 d a t a T y p e   =   e l e m e n t . d a t a ( ' t y p e ' )   | |   ( $ . a j a x S e t t i n g s   & &   $ . a j a x S e t t i n g s . d a t a T y p e ) ; 
+ 
+                 i f   ( e l e m e n t . i s ( ' f o r m ' ) )   { 
+                     m e t h o d   =   e l e m e n t . a t t r ( ' m e t h o d ' ) ; 
+                     u r l   =   e l e m e n t . a t t r ( ' a c t i o n ' ) ; 
+                     d a t a   =   e l e m e n t . s e r i a l i z e A r r a y ( ) ; 
+                     / /   m e m o i z e d   v a l u e   f r o m   c l i c k e d   s u b m i t   b u t t o n 
+                     v a r   b u t t o n   =   e l e m e n t . d a t a ( ' u j s : s u b m i t - b u t t o n ' ) ; 
+                     i f   ( b u t t o n )   { 
+                         d a t a . p u s h ( b u t t o n ) ; 
+                         e l e m e n t . d a t a ( ' u j s : s u b m i t - b u t t o n ' ,   n u l l ) ; 
+                     } 
+                 }   e l s e   i f   ( e l e m e n t . i s ( r a i l s . i n p u t C h a n g e S e l e c t o r ) )   { 
+                     m e t h o d   =   e l e m e n t . d a t a ( ' m e t h o d ' ) ; 
+                     u r l   =   e l e m e n t . d a t a ( ' u r l ' ) ; 
+                     d a t a   =   e l e m e n t . s e r i a l i z e ( ) ; 
+                     i f   ( e l e m e n t . d a t a ( ' p a r a m s ' ) )   d a t a   =   d a t a   +   " & "   +   e l e m e n t . d a t a ( ' p a r a m s ' ) ; 
+                 }   e l s e   i f   ( e l e m e n t . i s ( r a i l s . b u t t o n C l i c k S e l e c t o r ) )   { 
+                     m e t h o d   =   e l e m e n t . d a t a ( ' m e t h o d ' )   | |   ' g e t ' ; 
+                     u r l   =   e l e m e n t . d a t a ( ' u r l ' ) ; 
+                     d a t a   =   e l e m e n t . s e r i a l i z e ( ) ; 
+                     i f   ( e l e m e n t . d a t a ( ' p a r a m s ' ) )   d a t a   =   d a t a   +   " & "   +   e l e m e n t . d a t a ( ' p a r a m s ' ) ; 
+                 }   e l s e   { 
+                     m e t h o d   =   e l e m e n t . d a t a ( ' m e t h o d ' ) ; 
+                     u r l   =   r a i l s . h r e f ( e l e m e n t ) ; 
+                     d a t a   =   e l e m e n t . d a t a ( ' p a r a m s ' )   | |   n u l l ; 
+                 } 
+ 
+                 o p t i o n s   =   { 
+                     t y p e :   m e t h o d   | |   ' G E T ' ,   d a t a :   d a t a ,   d a t a T y p e :   d a t a T y p e , 
+                     / /   s t o p p i n g   t h e   " a j a x : b e f o r e S e n d "   e v e n t   w i l l   c a n c e l   t h e   a j a x   r e q u e s t 
+                     b e f o r e S e n d :   f u n c t i o n ( x h r ,   s e t t i n g s )   { 
+                         i f   ( s e t t i n g s . d a t a T y p e   = = =   u n d e f i n e d )   { 
+                             x h r . s e t R e q u e s t H e a d e r ( ' a c c e p t ' ,   ' * / * ; q = 0 . 5 ,   '   +   s e t t i n g s . a c c e p t s . s c r i p t ) ; 
+                         } 
+                         i f   ( r a i l s . f i r e ( e l e m e n t ,   ' a j a x : b e f o r e S e n d ' ,   [ x h r ,   s e t t i n g s ] ) )   { 
+                             e l e m e n t . t r i g g e r ( ' a j a x : s e n d ' ,   x h r ) ; 
+                         }   e l s e   { 
+                             r e t u r n   f a l s e ; 
+                         } 
+                     } , 
+                     s u c c e s s :   f u n c t i o n ( d a t a ,   s t a t u s ,   x h r )   { 
+                         e l e m e n t . t r i g g e r ( ' a j a x : s u c c e s s ' ,   [ d a t a ,   s t a t u s ,   x h r ] ) ; 
+                     } , 
+                     c o m p l e t e :   f u n c t i o n ( x h r ,   s t a t u s )   { 
+                         e l e m e n t . t r i g g e r ( ' a j a x : c o m p l e t e ' ,   [ x h r ,   s t a t u s ] ) ; 
+                     } , 
+                     e r r o r :   f u n c t i o n ( x h r ,   s t a t u s ,   e r r o r )   { 
+                         e l e m e n t . t r i g g e r ( ' a j a x : e r r o r ' ,   [ x h r ,   s t a t u s ,   e r r o r ] ) ; 
+                     } , 
+                     c r o s s D o m a i n :   c r o s s D o m a i n 
+                 } ; 
+ 
+                 / /   T h e r e   i s   n o   w i t h C r e d e n t i a l s   f o r   I E 6 - 8   w h e n 
+                 / /   " E n a b l e   n a t i v e   X M L H T T P   s u p p o r t "   i s   d i s a b l e d 
+                 i f   ( w i t h C r e d e n t i a l s )   { 
+                     o p t i o n s . x h r F i e l d s   =   { 
+                         w i t h C r e d e n t i a l s :   w i t h C r e d e n t i a l s 
+                     } ; 
+                 } 
+ 
+                 / /   O n l y   p a s s   u r l   t o   ` a j a x `   o p t i o n s   i f   n o t   b l a n k 
+                 i f   ( u r l )   {   o p t i o n s . u r l   =   u r l ;   } 
+ 
+                 r e t u r n   r a i l s . a j a x ( o p t i o n s ) ; 
+             }   e l s e   { 
+                 r e t u r n   f a l s e ; 
+             } 
+         } , 
+ 
+         / /   H a n d l e s   " d a t a - m e t h o d "   o n   l i n k s   s u c h   a s : 
+         / /   < a   h r e f = " / u s e r s / 5 "   d a t a - m e t h o d = " d e l e t e "   r e l = " n o f o l l o w "   d a t a - c o n f i r m = " A r e   y o u   s u r e ? " > D e l e t e < / a > 
+         h a n d l e M e t h o d :   f u n c t i o n ( l i n k )   { 
+             v a r   h r e f   =   r a i l s . h r e f ( l i n k ) , 
+                 m e t h o d   =   l i n k . d a t a ( ' m e t h o d ' ) , 
+                 t a r g e t   =   l i n k . a t t r ( ' t a r g e t ' ) , 
+                 c s r f T o k e n   =   $ ( ' m e t a [ n a m e = c s r f - t o k e n ] ' ) . a t t r ( ' c o n t e n t ' ) , 
+                 c s r f P a r a m   =   $ ( ' m e t a [ n a m e = c s r f - p a r a m ] ' ) . a t t r ( ' c o n t e n t ' ) , 
+                 f o r m   =   $ ( ' < f o r m   m e t h o d = " p o s t "   a c t i o n = " '   +   h r e f   +   ' " > < / f o r m > ' ) , 
+                 m e t a d a t a I n p u t   =   ' < i n p u t   n a m e = " _ m e t h o d "   v a l u e = " '   +   m e t h o d   +   ' "   t y p e = " h i d d e n "   / > ' ; 
+ 
+             i f   ( c s r f P a r a m   ! = =   u n d e f i n e d   & &   c s r f T o k e n   ! = =   u n d e f i n e d )   { 
+                 m e t a d a t a I n p u t   + =   ' < i n p u t   n a m e = " '   +   c s r f P a r a m   +   ' "   v a l u e = " '   +   c s r f T o k e n   +   ' "   t y p e = " h i d d e n "   / > ' ; 
+             } 
+ 
+             i f   ( t a r g e t )   {   f o r m . a t t r ( ' t a r g e t ' ,   t a r g e t ) ;   } 
+ 
+             f o r m . h i d e ( ) . a p p e n d ( m e t a d a t a I n p u t ) . a p p e n d T o ( ' b o d y ' ) ; 
+             f o r m . s u b m i t ( ) ; 
+         } , 
+ 
+         / /   H e l p e r   f u n c t i o n   t h a t   r e t u r n s   f o r m   e l e m e n t s   t h a t   m a t c h   t h e   s p e c i f i e d   C S S   s e l e c t o r 
+         / /   I f   f o r m   i s   a c t u a l l y   a   " f o r m "   e l e m e n t   t h i s   w i l l   r e t u r n   a s s o c i a t e d   e l e m e n t s   o u t s i d e   t h e   f r o m   t h a t   h a v e 
+         / /   t h e   h t m l   f o r m   a t t r i b u t e   s e t 
+         f o r m E l e m e n t s :   f u n c t i o n ( f o r m ,   s e l e c t o r )   { 
+             r e t u r n   f o r m . i s ( ' f o r m ' )   ?   $ ( f o r m [ 0 ] . e l e m e n t s ) . f i l t e r ( s e l e c t o r )   :   f o r m . f i n d ( s e l e c t o r ) ; 
+         } , 
+ 
+         / *   D i s a b l e s   f o r m   e l e m e n t s : 
+             -   C a c h e s   e l e m e n t   v a l u e   i n   ' u j s : e n a b l e - w i t h '   d a t a   s t o r e 
+             -   R e p l a c e s   e l e m e n t   t e x t   w i t h   v a l u e   o f   ' d a t a - d i s a b l e - w i t h '   a t t r i b u t e 
+             -   S e t s   d i s a b l e d   p r o p e r t y   t o   t r u e 
+         * / 
+         d i s a b l e F o r m E l e m e n t s :   f u n c t i o n ( f o r m )   { 
+             r a i l s . f o r m E l e m e n t s ( f o r m ,   r a i l s . d i s a b l e S e l e c t o r ) . e a c h ( f u n c t i o n ( )   { 
+                 r a i l s . d i s a b l e F o r m E l e m e n t ( $ ( t h i s ) ) ; 
+             } ) ; 
+         } , 
+ 
+         d i s a b l e F o r m E l e m e n t :   f u n c t i o n ( e l e m e n t )   { 
+             v a r   m e t h o d ,   r e p l a c e m e n t ; 
+ 
+             m e t h o d   =   e l e m e n t . i s ( ' b u t t o n ' )   ?   ' h t m l '   :   ' v a l ' ; 
+             r e p l a c e m e n t   =   e l e m e n t . d a t a ( ' d i s a b l e - w i t h ' ) ; 
+ 
+             e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' ,   e l e m e n t [ m e t h o d ] ( ) ) ; 
+             i f   ( r e p l a c e m e n t   ! = =   u n d e f i n e d )   { 
+                 e l e m e n t [ m e t h o d ] ( r e p l a c e m e n t ) ; 
+             } 
+ 
+             e l e m e n t . p r o p ( ' d i s a b l e d ' ,   t r u e ) ; 
+         } , 
+ 
+         / *   R e - e n a b l e s   d i s a b l e d   f o r m   e l e m e n t s : 
+             -   R e p l a c e s   e l e m e n t   t e x t   w i t h   c a c h e d   v a l u e   f r o m   ' u j s : e n a b l e - w i t h '   d a t a   s t o r e   ( c r e a t e d   i n   ` d i s a b l e F o r m E l e m e n t s ` ) 
+             -   S e t s   d i s a b l e d   p r o p e r t y   t o   f a l s e 
+         * / 
+         e n a b l e F o r m E l e m e n t s :   f u n c t i o n ( f o r m )   { 
+             r a i l s . f o r m E l e m e n t s ( f o r m ,   r a i l s . e n a b l e S e l e c t o r ) . e a c h ( f u n c t i o n ( )   { 
+                 r a i l s . e n a b l e F o r m E l e m e n t ( $ ( t h i s ) ) ; 
+             } ) ; 
+         } , 
+ 
+         e n a b l e F o r m E l e m e n t :   f u n c t i o n ( e l e m e n t )   { 
+             v a r   m e t h o d   =   e l e m e n t . i s ( ' b u t t o n ' )   ?   ' h t m l '   :   ' v a l ' ; 
+             i f   ( e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' ) )   e l e m e n t [ m e t h o d ] ( e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' ) ) ; 
+             e l e m e n t . p r o p ( ' d i s a b l e d ' ,   f a l s e ) ; 
+         } , 
+ 
+       / *   F o r   ' d a t a - c o n f i r m '   a t t r i b u t e : 
+             -   F i r e s   ` c o n f i r m `   e v e n t 
+             -   S h o w s   t h e   c o n f i r m a t i o n   d i a l o g 
+             -   F i r e s   t h e   ` c o n f i r m : c o m p l e t e `   e v e n t 
+ 
+             R e t u r n s   ` t r u e `   i f   n o   f u n c t i o n   s t o p s   t h e   c h a i n   a n d   u s e r   c h o s e   y e s ;   ` f a l s e `   o t h e r w i s e . 
+             A t t a c h i n g   a   h a n d l e r   t o   t h e   e l e m e n t ' s   ` c o n f i r m `   e v e n t   t h a t   r e t u r n s   a   ` f a l s y `   v a l u e   c a n c e l s   t h e   c o n f i r m a t i o n   d i a l o g . 
+             A t t a c h i n g   a   h a n d l e r   t o   t h e   e l e m e n t ' s   ` c o n f i r m : c o m p l e t e `   e v e n t   t h a t   r e t u r n s   a   ` f a l s y `   v a l u e   m a k e s   t h i s   f u n c t i o n 
+             r e t u r n   f a l s e .   T h e   ` c o n f i r m : c o m p l e t e `   e v e n t   i s   f i r e d   w h e t h e r   o r   n o t   t h e   u s e r   a n s w e r e d   t r u e   o r   f a l s e   t o   t h e   d i a l o g . 
+       * / 
+         a l l o w A c t i o n :   f u n c t i o n ( e l e m e n t )   { 
+             v a r   m e s s a g e   =   e l e m e n t . d a t a ( ' c o n f i r m ' ) , 
+                     a n s w e r   =   f a l s e ,   c a l l b a c k ; 
+             i f   ( ! m e s s a g e )   {   r e t u r n   t r u e ;   } 
+ 
+             i f   ( r a i l s . f i r e ( e l e m e n t ,   ' c o n f i r m ' ) )   { 
+                 a n s w e r   =   r a i l s . c o n f i r m ( m e s s a g e ) ; 
+                 c a l l b a c k   =   r a i l s . f i r e ( e l e m e n t ,   ' c o n f i r m : c o m p l e t e ' ,   [ a n s w e r ] ) ; 
+             } 
+             r e t u r n   a n s w e r   & &   c a l l b a c k ; 
+         } , 
+ 
+         / /   H e l p e r   f u n c t i o n   w h i c h   c h e c k s   f o r   b l a n k   i n p u t s   i n   a   f o r m   t h a t   m a t c h   t h e   s p e c i f i e d   C S S   s e l e c t o r 
+         b l a n k I n p u t s :   f u n c t i o n ( f o r m ,   s p e c i f i e d S e l e c t o r ,   n o n B l a n k )   { 
+             v a r   i n p u t s   =   $ ( ) ,   i n p u t ,   v a l u e T o C h e c k , 
+                     s e l e c t o r   =   s p e c i f i e d S e l e c t o r   | |   ' i n p u t , t e x t a r e a ' , 
+                     a l l I n p u t s   =   f o r m . f i n d ( s e l e c t o r ) ; 
+ 
+             a l l I n p u t s . e a c h ( f u n c t i o n ( )   { 
+                 i n p u t   =   $ ( t h i s ) ; 
+                 v a l u e T o C h e c k   =   i n p u t . i s ( ' i n p u t [ t y p e = c h e c k b o x ] , i n p u t [ t y p e = r a d i o ] ' )   ?   i n p u t . i s ( ' : c h e c k e d ' )   :   i n p u t . v a l ( ) ; 
+                 / /   I f   n o n B l a n k   a n d   v a l u e T o C h e c k   a r e   b o t h   t r u t h y ,   o r   n o n B l a n k   a n d   v a l u e T o C h e c k   a r e   b o t h   f a l s e y 
+                 i f   ( ! v a l u e T o C h e c k   = = =   ! n o n B l a n k )   { 
+ 
+                     / /   D o n ' t   c o u n t   u n c h e c k e d   r e q u i r e d   r a d i o   i f   o t h e r   r a d i o   w i t h   s a m e   n a m e   i s   c h e c k e d 
+                     i f   ( i n p u t . i s ( ' i n p u t [ t y p e = r a d i o ] ' )   & &   a l l I n p u t s . f i l t e r ( ' i n p u t [ t y p e = r a d i o ] : c h e c k e d [ n a m e = " '   +   i n p u t . a t t r ( ' n a m e ' )   +   ' " ] ' ) . l e n g t h )   { 
+                         r e t u r n   t r u e ;   / /   S k i p   t o   n e x t   i n p u t 
+                     } 
+ 
+                     i n p u t s   =   i n p u t s . a d d ( i n p u t ) ; 
+                 } 
+             } ) ; 
+             r e t u r n   i n p u t s . l e n g t h   ?   i n p u t s   :   f a l s e ; 
+         } , 
+ 
+         / /   H e l p e r   f u n c t i o n   w h i c h   c h e c k s   f o r   n o n - b l a n k   i n p u t s   i n   a   f o r m   t h a t   m a t c h   t h e   s p e c i f i e d   C S S   s e l e c t o r 
+         n o n B l a n k I n p u t s :   f u n c t i o n ( f o r m ,   s p e c i f i e d S e l e c t o r )   { 
+             r e t u r n   r a i l s . b l a n k I n p u t s ( f o r m ,   s p e c i f i e d S e l e c t o r ,   t r u e ) ;   / /   t r u e   s p e c i f i e s   n o n B l a n k 
+         } , 
+ 
+         / /   H e l p e r   f u n c t i o n ,   n e e d e d   t o   p r o v i d e   c o n s i s t e n t   b e h a v i o r   i n   I E 
+         s t o p E v e r y t h i n g :   f u n c t i o n ( e )   { 
+             $ ( e . t a r g e t ) . t r i g g e r ( ' u j s : e v e r y t h i n g S t o p p e d ' ) ; 
+             e . s t o p I m m e d i a t e P r o p a g a t i o n ( ) ; 
+             r e t u r n   f a l s e ; 
+         } , 
+ 
+         / /     r e p l a c e   e l e m e n t ' s   h t m l   w i t h   t h e   ' d a t a - d i s a b l e - w i t h '   a f t e r   s t o r i n g   o r i g i n a l   h t m l 
+         / /     a n d   p r e v e n t   c l i c k i n g   o n   i t 
+         d i s a b l e E l e m e n t :   f u n c t i o n ( e l e m e n t )   { 
+             v a r   r e p l a c e m e n t   =   e l e m e n t . d a t a ( ' d i s a b l e - w i t h ' ) ; 
+ 
+             e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' ,   e l e m e n t . h t m l ( ) ) ;   / /   s t o r e   e n a b l e d   s t a t e 
+             i f   ( r e p l a c e m e n t   ! = =   u n d e f i n e d )   { 
+                 e l e m e n t . h t m l ( r e p l a c e m e n t ) ; 
+             } 
+ 
+             e l e m e n t . b i n d ( ' c l i c k . r a i l s D i s a b l e ' ,   f u n c t i o n ( e )   {   / /   p r e v e n t   f u r t h e r   c l i c k i n g 
+                 r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+             } ) ; 
+         } , 
+ 
+         / /   r e s t o r e   e l e m e n t   t o   i t s   o r i g i n a l   s t a t e   w h i c h   w a s   d i s a b l e d   b y   ' d i s a b l e E l e m e n t '   a b o v e 
+         e n a b l e E l e m e n t :   f u n c t i o n ( e l e m e n t )   { 
+             i f   ( e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' )   ! = =   u n d e f i n e d )   { 
+                 e l e m e n t . h t m l ( e l e m e n t . d a t a ( ' u j s : e n a b l e - w i t h ' ) ) ;   / /   s e t   t o   o l d   e n a b l e d   s t a t e 
+                 e l e m e n t . r e m o v e D a t a ( ' u j s : e n a b l e - w i t h ' ) ;   / /   c l e a n   u p   c a c h e 
+             } 
+             e l e m e n t . u n b i n d ( ' c l i c k . r a i l s D i s a b l e ' ) ;   / /   e n a b l e   e l e m e n t 
+         } 
+     } ; 
+ 
+     i f   ( r a i l s . f i r e ( $ d o c u m e n t ,   ' r a i l s : a t t a c h B i n d i n g s ' ) )   { 
+ 
+         $ . a j a x P r e f i l t e r ( f u n c t i o n ( o p t i o n s ,   o r i g i n a l O p t i o n s ,   x h r ) {   i f   (   ! o p t i o n s . c r o s s D o m a i n   )   {   r a i l s . C S R F P r o t e c t i o n ( x h r ) ;   } } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . l i n k D i s a b l e S e l e c t o r ,   ' a j a x : c o m p l e t e ' ,   f u n c t i o n ( )   { 
+                 r a i l s . e n a b l e E l e m e n t ( $ ( t h i s ) ) ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . b u t t o n D i s a b l e S e l e c t o r ,   ' a j a x : c o m p l e t e ' ,   f u n c t i o n ( )   { 
+                 r a i l s . e n a b l e F o r m E l e m e n t ( $ ( t h i s ) ) ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . l i n k C l i c k S e l e c t o r ,   ' c l i c k . r a i l s ' ,   f u n c t i o n ( e )   { 
+             v a r   l i n k   =   $ ( t h i s ) ,   m e t h o d   =   l i n k . d a t a ( ' m e t h o d ' ) ,   d a t a   =   l i n k . d a t a ( ' p a r a m s ' ) ,   m e t a C l i c k   =   e . m e t a K e y   | |   e . c t r l K e y ; 
+             i f   ( ! r a i l s . a l l o w A c t i o n ( l i n k ) )   r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+ 
+             i f   ( ! m e t a C l i c k   & &   l i n k . i s ( r a i l s . l i n k D i s a b l e S e l e c t o r ) )   r a i l s . d i s a b l e E l e m e n t ( l i n k ) ; 
+ 
+             i f   ( l i n k . d a t a ( ' r e m o t e ' )   ! = =   u n d e f i n e d )   { 
+                 i f   ( m e t a C l i c k   & &   ( ! m e t h o d   | |   m e t h o d   = = =   ' G E T ' )   & &   ! d a t a )   {   r e t u r n   t r u e ;   } 
+ 
+                 v a r   h a n d l e R e m o t e   =   r a i l s . h a n d l e R e m o t e ( l i n k ) ; 
+                 / /   r e s p o n s e   f r o m   r a i l s . h a n d l e R e m o t e ( )   w i l l   e i t h e r   b e   f a l s e   o r   a   d e f e r r e d   o b j e c t   p r o m i s e . 
+                 i f   ( h a n d l e R e m o t e   = = =   f a l s e )   { 
+                     r a i l s . e n a b l e E l e m e n t ( l i n k ) ; 
+                 }   e l s e   { 
+                     h a n d l e R e m o t e . e r r o r (   f u n c t i o n ( )   {   r a i l s . e n a b l e E l e m e n t ( l i n k ) ;   }   ) ; 
+                 } 
+                 r e t u r n   f a l s e ; 
+ 
+             }   e l s e   i f   ( l i n k . d a t a ( ' m e t h o d ' ) )   { 
+                 r a i l s . h a n d l e M e t h o d ( l i n k ) ; 
+                 r e t u r n   f a l s e ; 
+             } 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . b u t t o n C l i c k S e l e c t o r ,   ' c l i c k . r a i l s ' ,   f u n c t i o n ( e )   { 
+             v a r   b u t t o n   =   $ ( t h i s ) ; 
+ 
+             i f   ( ! r a i l s . a l l o w A c t i o n ( b u t t o n ) )   r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+ 
+             i f   ( b u t t o n . i s ( r a i l s . b u t t o n D i s a b l e S e l e c t o r ) )   r a i l s . d i s a b l e F o r m E l e m e n t ( b u t t o n ) ; 
+ 
+             v a r   h a n d l e R e m o t e   =   r a i l s . h a n d l e R e m o t e ( b u t t o n ) ; 
+             / /   r e s p o n s e   f r o m   r a i l s . h a n d l e R e m o t e ( )   w i l l   e i t h e r   b e   f a l s e   o r   a   d e f e r r e d   o b j e c t   p r o m i s e . 
+             i f   ( h a n d l e R e m o t e   = = =   f a l s e )   { 
+                 r a i l s . e n a b l e F o r m E l e m e n t ( b u t t o n ) ; 
+             }   e l s e   { 
+                 h a n d l e R e m o t e . e r r o r (   f u n c t i o n ( )   {   r a i l s . e n a b l e F o r m E l e m e n t ( b u t t o n ) ;   }   ) ; 
+             } 
+             r e t u r n   f a l s e ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . i n p u t C h a n g e S e l e c t o r ,   ' c h a n g e . r a i l s ' ,   f u n c t i o n ( e )   { 
+             v a r   l i n k   =   $ ( t h i s ) ; 
+             i f   ( ! r a i l s . a l l o w A c t i o n ( l i n k ) )   r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+ 
+             r a i l s . h a n d l e R e m o t e ( l i n k ) ; 
+             r e t u r n   f a l s e ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . f o r m S u b m i t S e l e c t o r ,   ' s u b m i t . r a i l s ' ,   f u n c t i o n ( e )   { 
+             v a r   f o r m   =   $ ( t h i s ) , 
+                 r e m o t e   =   f o r m . d a t a ( ' r e m o t e ' )   ! = =   u n d e f i n e d , 
+                 b l a n k R e q u i r e d I n p u t s , 
+                 n o n B l a n k F i l e I n p u t s ; 
+ 
+             i f   ( ! r a i l s . a l l o w A c t i o n ( f o r m ) )   r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+ 
+             / /   s k i p   o t h e r   l o g i c   w h e n   r e q u i r e d   v a l u e s   a r e   m i s s i n g   o r   f i l e   u p l o a d   i s   p r e s e n t 
+             i f   ( f o r m . a t t r ( ' n o v a l i d a t e ' )   = =   u n d e f i n e d )   { 
+                 b l a n k R e q u i r e d I n p u t s   =   r a i l s . b l a n k I n p u t s ( f o r m ,   r a i l s . r e q u i r e d I n p u t S e l e c t o r ) ; 
+                 i f   ( b l a n k R e q u i r e d I n p u t s   & &   r a i l s . f i r e ( f o r m ,   ' a j a x : a b o r t e d : r e q u i r e d ' ,   [ b l a n k R e q u i r e d I n p u t s ] ) )   { 
+                     r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e ) ; 
+                 } 
+             } 
+ 
+             i f   ( r e m o t e )   { 
+                 n o n B l a n k F i l e I n p u t s   =   r a i l s . n o n B l a n k I n p u t s ( f o r m ,   r a i l s . f i l e I n p u t S e l e c t o r ) ; 
+                 i f   ( n o n B l a n k F i l e I n p u t s )   { 
+                     / /   s l i g h t   t i m e o u t   s o   t h a t   t h e   s u b m i t   b u t t o n   g e t s   p r o p e r l y   s e r i a l i z e d 
+                     / /   ( m a k e   i t   e a s y   f o r   e v e n t   h a n d l e r   t o   s e r i a l i z e   f o r m   w i t h o u t   d i s a b l e d   v a l u e s ) 
+                     s e t T i m e o u t ( f u n c t i o n ( ) {   r a i l s . d i s a b l e F o r m E l e m e n t s ( f o r m ) ;   } ,   1 3 ) ; 
+                     v a r   a b o r t e d   =   r a i l s . f i r e ( f o r m ,   ' a j a x : a b o r t e d : f i l e ' ,   [ n o n B l a n k F i l e I n p u t s ] ) ; 
+ 
+                     / /   r e - e n a b l e   f o r m   e l e m e n t s   i f   e v e n t   b i n d i n g s   r e t u r n   f a l s e   ( c a n c e l i n g   n o r m a l   f o r m   s u b m i s s i o n ) 
+                     i f   ( ! a b o r t e d )   {   s e t T i m e o u t ( f u n c t i o n ( ) {   r a i l s . e n a b l e F o r m E l e m e n t s ( f o r m ) ;   } ,   1 3 ) ;   } 
+ 
+                     r e t u r n   a b o r t e d ; 
+                 } 
+ 
+                 r a i l s . h a n d l e R e m o t e ( f o r m ) ; 
+                 r e t u r n   f a l s e ; 
+ 
+             }   e l s e   { 
+                 / /   s l i g h t   t i m e o u t   s o   t h a t   t h e   s u b m i t   b u t t o n   g e t s   p r o p e r l y   s e r i a l i z e d 
+                 s e t T i m e o u t ( f u n c t i o n ( ) {   r a i l s . d i s a b l e F o r m E l e m e n t s ( f o r m ) ;   } ,   1 3 ) ; 
+             } 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . f o r m I n p u t C l i c k S e l e c t o r ,   ' c l i c k . r a i l s ' ,   f u n c t i o n ( e v e n t )   { 
+             v a r   b u t t o n   =   $ ( t h i s ) ; 
+ 
+             i f   ( ! r a i l s . a l l o w A c t i o n ( b u t t o n ) )   r e t u r n   r a i l s . s t o p E v e r y t h i n g ( e v e n t ) ; 
+ 
+             / /   r e g i s t e r   t h e   p r e s s e d   s u b m i t   b u t t o n 
+             v a r   n a m e   =   b u t t o n . a t t r ( ' n a m e ' ) , 
+                 d a t a   =   n a m e   ?   { n a m e : n a m e ,   v a l u e : b u t t o n . v a l ( ) }   :   n u l l ; 
+ 
+             b u t t o n . c l o s e s t ( ' f o r m ' ) . d a t a ( ' u j s : s u b m i t - b u t t o n ' ,   d a t a ) ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . f o r m S u b m i t S e l e c t o r ,   ' a j a x : s e n d . r a i l s ' ,   f u n c t i o n ( e v e n t )   { 
+             i f   ( t h i s   = =   e v e n t . t a r g e t )   r a i l s . d i s a b l e F o r m E l e m e n t s ( $ ( t h i s ) ) ; 
+         } ) ; 
+ 
+         $ d o c u m e n t . d e l e g a t e ( r a i l s . f o r m S u b m i t S e l e c t o r ,   ' a j a x : c o m p l e t e . r a i l s ' ,   f u n c t i o n ( e v e n t )   { 
+             i f   ( t h i s   = =   e v e n t . t a r g e t )   r a i l s . e n a b l e F o r m E l e m e n t s ( $ ( t h i s ) ) ; 
+         } ) ; 
+ 
+         $ ( f u n c t i o n ( ) { 
+             r a i l s . r e f r e s h C S R F T o k e n s ( ) ; 
+         } ) ; 
+     } 
+ 
+ } ) (   j Q u e r y   ) ; 
+   l       https://u99d4dcb193vli6qas1cakf05f9ai6u8s7f6e13vsfrjsaca9an0.cc-propeller.cloud/assets/jquery_ujs.js?body=1     fD      fD                    Ç    ö    Á Qôê¶Ä æ•ê§Ä ø    jQueryá!´!ˇˇˇˇ                ´+íHç!´!       C        6   /                        6      ê $ 	   YD     YD                   Gà   5    à   I   Êà   ∏   
+=   Á QÊà   ö   : W   Qà   [   =   ]   =   ]   =   ]	   =
+   ]   =   ]   =   ]   =   ]   =   ]   =   ]   =   ]   =   ]   Ç    ]   Ç   ]   Ç   ]   Ç   ]   Ç   ]   Ç   ]   Ç   ]    Ç   ]!   Ç   ]"   Ç	   ]#   Ç
+   ]$   Ç   ]%   Ç   ]&   Ç   ]'   Ç   ](   Ç   ])   Ç   ]*   Ç   ]+   Ç   ],   â   6    Qà   ∏   
+V   =-   : e  Êà   ∏.   
+Ç   Á QV   ∏/   
+à   5   =0   Ç   Á QV   ∏/   
+à   5   =0   Ç   Á QV   ∏/   
+à   5   =1   Ç   Á QV   ∏/   
+à   5   =1   Ç   Á QV   ∏/   
+à   5	   =2   Ç   Á QV   ∏/   
+à   5   =3   Ç   Á QV   ∏/   
+à   5   =1   Ç   Á QV   ∏/   
+à   5   =4   Ç   Á QV   ∏/   
+à   5   =5   Ç   Á Qà   Ç   Á QÊô°–ûê÷†êòêÀê»†ê †ê †ê †ê †"ê †%ê †(ê †+ê †.ê †1ê †4ê †7ê †:ê †@ê †Gê †Nê †Sê †Xê †]ê †Ä  ¨ê †Ä  ¬ê †Ä  Àê †Ä  —ê †Ä  „ê †Ä  Èê †Ä  ˘ê †Ä ê †Ä ê †Ä "ê †Ä *ê †Ä 8ê’†Ä A’êûòê’òòê„òòòòê„òòòòê„†Ä eê„†Ä vê„†Ä ~ê„†Ä •ê„†Ä ±ê„òòòòê„òòòòê–†Ä æ    rails   errorG   jquery-ujs has already been loaded!   document≠   a[data-confirm], a[data-method], a[data-remote], a[data-disable-with], a[data-disable]#   linkClickSelectoró   button[data-remote]:not(form button), button[data-confirm]:not(form button)'   buttonClickSelector}   select[data-remote], input[data-remote], textarea[data-remote]'   inputChangeSelector	   form%   formSubmitSelectorï  form input[type=submit], form input[type=image], form button[type=submit], form button:not([type]), input[type=submit][form], input[type=image][form], button[type=submit][form], button[form]:not([type])-   formInputClickSelectorá  input[data-disable-with]:enabled, button[data-disable-with]:enabled, textarea[data-disable-with]:enabled, input[data-disable]:enabled, button[data-disable]:enabled, textarea[data-disable]:enabled   disableSelectorì  input[data-disable-with]:disabled, button[data-disable-with]:disabled, textarea[data-disable-with]:disabled, input[data-disable]:disabled, button[data-disable]:disabled, textarea[data-disable]:disabled   enableSelectorù   input[name][required]:not([disabled]),textarea[name][required]:not([disabled])+   requiredInputSelector!   input[type=file]#   fileInputSelectorK   a[data-disable-with], a[data-disable]'   linkDisableSelectorì   button[data-remote][data-disable-with], button[data-remote][data-disable]+   buttonDisableSelector   CSRFProtection#   refreshCSRFTokens	   fire   confirm	   ajax	   href   handleRemote   handleMethod   formElements'   disableFormElements%   disableFormElement%   enableFormElements#   enableFormElement   allowAction   blankInputs   nonBlankInputs   stopEverything   disableElement   enableElement)   rails:attachBindings   ajaxPrefilter   delegate   ajax:complete   click.rails   change.rails   submit.rails   ajax:send.rails'   ajax:complete.railså!´!ˇˇˇˇ      $   undefined   rails   $document      ´+íHç!´!          CSRFProtectionB 1
+  º
+  )
+  º
+  :              5ûç!´!    	   #   refreshCSRFTokensC  m                                           Ä  ;    3    @                à   =    : ∏   
+=   : W   Qà   =   : ∏   
+=   : W  Qà   =   V  =   : ∏   
+V   Á Qôòê
+Àê◊òê
+Àê◊òêËòê +   meta[name=csrf-token]	   attr   content+   meta[name=csrf-param]#   form input[name="   "]   valå!´!ˇˇˇˇ      csrfToken   csrfParam         ´+íHöò;¯       5ûç!´!    	   	   fireC 9                                          Ä  s  Ú  k  Ú  G                à   ∏    
+T : W   QT  ∏   
+V   T Á QV   5   BIôòê
+œê»òê’òêÀòê    Event   trigger   resultå!´!ˇˇˇˇ      obj	   name	   data   event       ´+íHöò;¯       5ûç!´!          confirmB i  ô  a  ô  N              5ûç!´!       	   ajaxB   2  ˚  2  S              5ûç!´!       	   hrefB ó  À  è  À  X              5ûç!´!          handleRemoteB   á    á  ]      ∞          element   B    :  ¬  :  É      @        5û   B W  ∫  O  ∫  ç              5û   B ÿ  0  –  0  ê              5û   B K  Æ  C  Æ  ì              5û 5ûç!´!          handleMethodB 9  
+  1  
+  ¨      0        5ûç!´!          formElementsB   Å    Å  ¬              5ûç!´!       '   disableFormElementsB y   !  q   !  À   !            B  ≈   ¸   Ω   ¸   Ã   C           5û 5ûç!´!       %   disableFormElementB '!  w"  !  w"  —                5ûç!´!       %   enableFormElementsB h#  Ò#  `#  Ò#  „                B  ≥#  È#  ´#  È#  ‰   B           5û 5ûç!´!       #   enableFormElementB $  ‚$  $  ‚$  È              5ûç!´!          allowActionB Y'  •(  Q'  •(  ˘      0        5ûç!´!          blankInputsB &)  ´,  )  ´,       `          nonBlank    inputs    input    valueToCheck    allInputs   B  ˛)  v,  ˆ)  v,       2        5û 5ûç!´!          nonBlankInputsB 3-  Æ-  +-  Æ-               5ûç!´!          stopEverythingB .  à.  	.  à.  "             5ûç!´!          disableElementB "/  ê0  /  ê0  *               B 70  à0  /0  à0  2  1           5û 5ûç!´!          enableElementB 1  .2   1  .2  8              5ûé!´!       é!´!#   linkClickSelectorã!´!é!´!'   buttonClickSelectorã!´!é!´!'   inputChangeSelectorã!´!é!´!%   formSubmitSelectorã!´!é!´!-   formInputClickSelectorã!´!é!´!   disableSelectorã!´!é!´!   enableSelectorã!´!é!´!+   requiredInputSelectorã!´!é!´!#   fileInputSelectorã!´!é!´!'   linkDisableSelectorã!´!é!´!+   buttonDisableSelectorã!´!é!´!   CSRFProtectionã!´!é!´!#   refreshCSRFTokensã!´!é!´!	   fireã!´!é!´!   confirmã!´!é!´!	   ajaxã!´!é!´!	   hrefã!´!é!´!   handleRemoteã!´!é!´!   handleMethodã!´!é!´!   formElementsã!´!é!´!'   disableFormElementsã!´!é!´!%   disableFormElementã!´!é!´!%   enableFormElementsã!´!é!´!#   enableFormElementã!´!é!´!   allowActionã!´!é!´!   blankInputsã!´!é!´!   nonBlankInputsã!´!é!´!   stopEverythingã!´!é!´!   disableElementã!´!é!´!   enableElementã!´!    ç!´!       B â2  Â2  Å2  Â2  C              5ûç!´!       B  43  d3  ,3  d3  E  K           5ûç!´!       B  µ3  È3  ≠3  È3  I  M           5ûç!´!       B 44  ù7  ,4  ù7  M  G   r       	   link   B  Í6  7  ‚6  7  [  &           5û 5ûç!´!       B Í7  	:  ‚7  	:  e  I   B          button   B  Ω9  ‰9  µ9  ‰9  q  $           5û 5ûç!´!       B W:  ı:  O:  ı:  v  J           5ûç!´!       B B;  5A  :;  5A  ~  I   Ç       	   form   B  ‡>  ?  ÿ>  ?  ì             5û   B  ˜?  @  Ô?  @  ó  -           5û   B  ˚@  !A  Û@  !A  °             5û 5ûç!´!       B ÖA  ÀB  }A  ÀB  •  L           5ûç!´!       B C  nC  C  nC  ±  L           5ûç!´!       B ¬C  D  ∫C  D  µ  P           5ûç!´!       C                                              Ä  &D  PD  D  PD  π                à   ∏    
+Á  Qôòê–òê #   refreshCSRFTokenså!´!ˇˇˇˇ              ´+íHöò;¯       5ûöò;¯ 5ûöò;¯≤j¸á4p      [Eôê[Eôë?Gr∑       l    :https://u99d4dcb193vli6qas1cakf05f9ai6u8s7f6e13vsfrjsaca9an0.cc-propeller.cloud/assets/jquery_ujs.js?body=1 necko:classified 1 strongly-framed 1 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8FvcOXmlQiTNWFiWlrbpbqgwAAAAAAAARtMIIEaTCCA1GgAwIBAgIQD/iGGjarqX5j1oO6j93RDDANBgkqhkiG9w0BAQsFADBGMQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRUwEwYDVQQLEwxTZXJ2ZXIgQ0EgMUIxDzANBgNVBAMTBkFtYXpvbjAeFw0xNzExMjgwMDAwMDBaFw0xODEyMjgxMjAwMDBaMB8xHTAbBgNVBAMMFCouY2MtcHJvcGVsbGVyLmNsb3VkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAon77lCVPQIarer3tZg+PX92TSaubG6XqE72PC2mMcZ06+Q7QFMhQndb3uNMis6EOsG8UPuIn+1cjPk4BM5JGO16JNzRKW/2u3CZcxh0mldL+/WpjpKrJ2TRfMi89He+WDI/hLEs5dOySC4rfInAOSsPlx9iO5Cf3+yJ7H5TUiESFnKSzri8VFozY5hdZjUDr5eXF52JDYWtFgSOLNs2OPM3XYb1xkA3IFfwzXaTOK7uPxTHtcik78JNPbuT7BruWmERzU/Cep4aGbkM8NoPsogaV4ctxdSZ80ux0x1E5fcE8dU9EigdBPXFX6Z9Sw90lpu6LIn8+MK369uv9+bkQNwIDAQABo4IBeDCCAXQwHwYDVR0jBBgwFoAUWaRmBlKge5WSPKOUByeWdFv5PdAwHQYDVR0OBBYEFEMBI89wq9XNFSJEg193ATvI36/GMB8GA1UdEQQYMBaCFCouY2MtcHJvcGVsbGVyLmNsb3VkMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwOwYDVR0fBDQwMjAwoC6gLIYqaHR0cDovL2NybC5zY2ExYi5hbWF6b250cnVzdC5jb20vc2NhMWIuY3JsMCAGA1UdIAQZMBcwCwYJYIZIAYb9bAECMAgGBmeBDAECATB1BggrBgEFBQcBAQRpMGcwLQYIKwYBBQUHMAGGIWh0dHA6Ly9vY3NwLnNjYTFiLmFtYXpvbnRydXN0LmNvbTA2BggrBgEFBQcwAoYqaHR0cDovL2NydC5zY2ExYi5hbWF6b250cnVzdC5jb20vc2NhMWIuY3J0MAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAFwsAhc0tmATkH8Dzwkg+q5kMHjRJXw4snTk0lLAhsqfNfkwBkRmxDQAYBR9kFWNi9l/KEuOW3QJRymrnAW7x/pifiRN7JoGavwu0IUw4GNcpaabjMSlLPrDWmToUMJbTbVim7dSmQQssfk6fFviMzUhqRZvCAmZZKGIIsnZnPeRB1wXQr8gLFjyHMTyRHUDiuFXnOphBbCGHZuKkZNljZEJpxuHbn5XGu7C55r486Tw1yI0r3n/ufkvRrJZhu8mS+ClXlt3efcZoM8DVlE89KNbDx10iGpvGl8DF5HJnAZoBHTDPbWFrQdMMP7auTzmK3jTOULSlOPPPLavCzKJTZPALwMDAAAAAAEBAAAAAAAABG5vbmUAAAAQUlNBLVBLQ1MxLVNIQTUxMgAAAA== request-method GET response-head HTTP/1.1 200 OK
+Content-Length: 17510
+Content-Type: application/javascript
+Etag: "f851d3ce505db562e47f81ce4def755c"
+Last-Modified: Thu, 14 Jun 2018 15:25:45 GMT
+Date: Wed, 11 Jul 2018 05:45:53 GMT
+Expires: Wed, 11 Jul 2018 05:45:53 UTC
+X-Request-Id: 0980fd30-6ef1-41c3-8e11-4b269c13a6f2
+X-Runtime: 0.002284
+Cache-Control: max-age=0
+Server: WEBrick/1.3.1 (Ruby/2.3.1/2016-04-26)
+ original-response-headers Cache-Control: no-cache
+Cache-Control: max-age=0
+Connection: Keep-Alive
+Content-Length: 17510
+Content-Type: application/javascript
+Date: Wed, 11 Jul 2018 05:32:06 GMT
+Etag: "f851d3ce505db562e47f81ce4def755c"
+Expires: Wed, 11 Jul 2018 05:32:06 UTC
+Last-Modified: Thu, 14 Jun 2018 15:25:45 GMT
+Server: WEBrick/1.3.1 (Ruby/2.3.1/2016-04-26)
+X-Request-Id: 23c68a8c-6596-4d99-a0cd-59f792c7a035
+X-Runtime: 0.002155
+ uncompressed-len 0 net-response-time-onstart 492 net-response-time-onstop 728 alt-data 1;17510,javascript/moz-bytecode-20180313132747   Í‡

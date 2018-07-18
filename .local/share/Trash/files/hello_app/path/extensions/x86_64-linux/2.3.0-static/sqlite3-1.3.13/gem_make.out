@@ -1,0 +1,41 @@
+current directory: /home/aravindh/environment/hello_app/path/gems/sqlite3-1.3.13/ext/sqlite3
+/home/aravindh/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180718-1081-1jbekip.rb extconf.rb
+Ignoring binding_of_caller-0.8.0 because its extensions are not built.  Try: gem pristine binding_of_caller --version 0.8.0
+Ignoring byebug-10.0.2 because its extensions are not built.  Try: gem pristine byebug --version 10.0.2
+Ignoring debug_inspector-0.0.3 because its extensions are not built.  Try: gem pristine debug_inspector --version 0.0.3
+Ignoring json-1.8.6 because its extensions are not built.  Try: gem pristine json --version 1.8.6
+checking for sqlite3.h... yes
+checking for pthread_create() in -lpthread... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for rb_integer_pack()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... yes
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/aravindh/environment/hello_app/path/extensions/x86_64-linux/2.3.0-static/sqlite3-1.3.13/mkmf.log
+
+current directory: /home/aravindh/environment/hello_app/path/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/environment/hello_app/path/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR="
+compiling sqlite3.c
+compiling exception.c
+compiling database.c
+compiling statement.c
+compiling backup.c
+linking shared-object sqlite3/sqlite3_native.so
+
+current directory: /home/aravindh/environment/hello_app/path/gems/sqlite3-1.3.13/ext/sqlite3
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 sqlite3_native.so ./.gem.20180718-1081-1jnfnpj/sqlite3

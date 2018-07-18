@@ -1,0 +1,16 @@
+current directory: /home/aravindh/environment/my_app/path/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+/home/aravindh/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180718-13014-17zsn6w.rb extconf.rb
+
+current directory: /home/aravindh/environment/my_app/path/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: /home/aravindh/environment/my_app/path/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+current directory: /home/aravindh/environment/my_app/path/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" install
+echo "Nada."
+Nada.

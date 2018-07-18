@@ -1,0 +1,15 @@
+current directory: /home/aravindh/environment/my_app/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+/home/aravindh/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180718-13014-1tcn8s5.rb extconf.rb
+creating Makefile
+
+current directory: /home/aravindh/environment/my_app/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/environment/my_app/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.so
+
+current directory: /home/aravindh/environment/my_app/path/gems/debug_inspector-0.0.3/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.so ./.gem.20180718-13014-18ys2cy

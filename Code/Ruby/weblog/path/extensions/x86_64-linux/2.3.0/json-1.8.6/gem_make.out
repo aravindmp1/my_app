@@ -1,0 +1,13 @@
+current directory: /home/aravindh/Code/Ruby/weblog/path/gems/json-1.8.6/ext/json
+/usr/bin/ruby2.3 -r ./siteconf20180711-8517-nwv3vg.rb extconf.rb
+creating Makefile
+
+current directory: /home/aravindh/Code/Ruby/weblog/path/gems/json-1.8.6/ext/json
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/Code/Ruby/weblog/path/gems/json-1.8.6/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: /home/aravindh/Code/Ruby/weblog/path/gems/json-1.8.6/ext/json
+make "DESTDIR=" install

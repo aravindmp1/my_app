@@ -1,0 +1,20 @@
+logrotate state -- version 2
+"/home/aravindh/.cache/upstart/hud.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/indicator-printers.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/bamfdaemon.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/unity-panel-service-lockscreen.log" 2018-7-13-10:28:26
+"/home/aravindh/.cache/upstart/ssh-agent.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/indicator-sound.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/dbus.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/unity-panel-service.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/unity7.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/update-notifier-crash-_var_crash__opt_teamviewer_tv_bin_TVGuiSlave.64.998.crash.log" 2018-7-12-10:28:0
+"/home/aravindh/.cache/upstart/gpg-agent.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/at-spi2-registryd.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/unity-settings-daemon.log" 2018-7-18-13:41:7
+"/home/aravindh/.cache/upstart/update-notifier-cds.log" 2018-7-9-16:50:40
+"/home/aravindh/.cache/upstart/indicator-keyboard.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/window-stack-bridge.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/update-notifier-release.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/gnome-keyring-ssh.log" 2018-7-18-10:16:2
+"/home/aravindh/.cache/upstart/upstart-event-bridge.log" 2018-7-18-10:16:2

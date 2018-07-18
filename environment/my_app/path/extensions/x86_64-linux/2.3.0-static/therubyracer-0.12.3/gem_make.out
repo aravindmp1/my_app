@@ -1,0 +1,47 @@
+current directory: /home/aravindh/environment/my_app/path/gems/therubyracer-0.12.3/ext/v8
+/home/aravindh/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180718-24607-guziig.rb extconf.rb
+checking for main() in -lpthread... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/aravindh/environment/my_app/path/extensions/x86_64-linux/2.3.0-static/therubyracer-0.12.3/mkmf.log
+
+current directory: /home/aravindh/environment/my_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/environment/my_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR="
+compiling value.cc
+compiling v8.cc
+compiling object.cc
+compiling handles.cc
+compiling accessor.cc
+compiling constraints.cc
+compiling locker.cc
+compiling external.cc
+compiling array.cc
+compiling exception.cc
+compiling gc.cc
+compiling message.cc
+compiling string.cc
+compiling primitive.cc
+compiling constants.cc
+compiling date.cc
+compiling script.cc
+compiling context.cc
+compiling stack.cc
+compiling trycatch.cc
+compiling backref.cc
+compiling heap.cc
+compiling function.cc
+compiling signature.cc
+compiling template.cc
+compiling init.cc
+compiling rr.cc
+compiling invocation.cc
+linking shared-object v8/init.so
+
+current directory: /home/aravindh/environment/my_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 init.so ./.gem.20180718-24607-9rh89w/v8

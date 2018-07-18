@@ -1,0 +1,11 @@
+class Array
+ 
+ def initialize(string)
+   @string=string
+   
+
+    
+
+   end    
+ end
+end
