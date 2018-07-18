@@ -76,18 +76,20 @@
 	g
 
 # File marks:
-'0  11  17  ~/environment/my_app/Gemfile
-'1  150  6  ~/environment/my_app/Gemfile.lock
-'2  7  3  ~/environment/my_app/Gemfile
-'3  1  0  ~/environment/my_app/gemfile
-'4  1  0  ~/environment/my_app/GEMFILE
-'5  1  0  ~/sorting.rb
-'6  16  5  ~/sorting.rb
-'7  18  15  ~/sorting.rb
-'8  19  17  ~/sorting.rb
-'9  17  2  ~/sorting
+'0  7  46  ~/.git/config
+'1  11  17  ~/environment/my_app/Gemfile
+'2  150  6  ~/environment/my_app/Gemfile.lock
+'3  7  3  ~/environment/my_app/Gemfile
+'4  1  0  ~/environment/my_app/gemfile
+'5  1  0  ~/environment/my_app/GEMFILE
+'6  1  0  ~/sorting.rb
+'7  16  5  ~/sorting.rb
+'8  18  15  ~/sorting.rb
+'9  19  17  ~/sorting.rb
 
 # Jumplist (newest first):
+-'  7  46  ~/.git/config
+-'  1  0  ~/.git/config
 -'  11  17  ~/environment/my_app/Gemfile
 -'  1  0  ~/environment/my_app/Gemfile
 -'  150  6  ~/environment/my_app/Gemfile.lock
@@ -185,9 +187,14 @@
 -'  1  0  ~/Desktop/rept.rb
 -'  12  23  ~/rept.rb
 -'  15  11  ~/rept.rb
--'  9  23  ~/rept.rb
 
 # History of marks within files (newest to oldest):
+
+> ~/.git/config
+	"	7	46
+	^	7	47
+	.	7	7
+	+	7	7
 
 > ~/environment/my_app/Gemfile
 	"	11	17

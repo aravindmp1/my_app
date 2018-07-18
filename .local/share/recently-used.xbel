@@ -247,7 +247,7 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/data_cleaning_guidelines.txt" added="2018-07-12T07:13:40Z" modified="2018-07-13T10:42:02Z" visited="2018-07-12T07:13:40Z">
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/data_cleaning_guidelines.txt" added="2018-07-12T07:13:40Z" modified="2018-07-18T10:05:54Z" visited="2018-07-12T07:13:40Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="text/plain"/>
@@ -255,8 +255,8 @@
           <bookmark:group>gedit</bookmark:group>
         </bookmark:groups>
         <bookmark:applications>
-          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-13T10:42:02Z" count="7"/>
-          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-13T10:08:15Z" count="3"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T08:48:58Z" count="8"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T10:05:54Z" count="12"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -297,13 +297,13 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_5.odt" added="2018-07-12T07:20:51Z" modified="2018-07-13T10:13:36Z" visited="2018-07-12T07:20:51Z">
+  <bookmark href="file:///home/aravindh/Downloads/datacleaning(1)/dec-2_5.odt" added="2018-07-12T07:20:51Z" modified="2018-07-18T10:32:59Z" visited="2018-07-12T07:20:51Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
         <bookmark:applications>
-          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T10:13:36Z" count="92"/>
-          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-13T08:21:36Z" count="8"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-18T10:32:59Z" count="133"/>
+          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-18T08:49:26Z" count="9"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -387,12 +387,12 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/aravindh/Desktop/POSGRESQL.odt" added="2018-07-13T10:56:12Z" modified="2018-07-13T11:11:27Z" visited="2018-07-13T10:56:12Z">
+  <bookmark href="file:///home/aravindh/Desktop/POSGRESQL.odt" added="2018-07-13T10:56:12Z" modified="2018-07-18T08:54:54Z" visited="2018-07-13T10:56:12Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
         <bookmark:applications>
-          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-13T11:11:20Z" count="6"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-18T08:54:54Z" count="7"/>
           <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-13T10:56:35Z" count="1"/>
           <bookmark:application name="Firefox" exec="&apos;firefox %u&apos;" modified="2018-07-13T11:11:27Z" count="1"/>
         </bookmark:applications>
@@ -505,7 +505,7 @@
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/aravindh/environment/my_app/Gemfile" added="2018-07-18T06:39:43Z" modified="2018-07-18T06:54:53Z" visited="2018-07-18T06:39:43Z">
+  <bookmark href="file:///home/aravindh/environment/my_app/Gemfile" added="2018-07-18T06:39:43Z" modified="2018-07-18T10:51:18Z" visited="2018-07-18T06:39:43Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="text/plain"/>
@@ -513,13 +513,13 @@
           <bookmark:group>gedit</bookmark:group>
         </bookmark:groups>
         <bookmark:applications>
-          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T06:40:41Z" count="11"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T10:51:18Z" count="12"/>
           <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T06:54:53Z" count="4"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="file:///home/aravindh/environment/my_app/gemfile" added="2018-07-18T06:54:39Z" modified="2018-07-18T06:54:39Z" visited="2018-07-18T06:54:40Z">
+  <bookmark href="file:///home/aravindh/environment/my_app/gemfile" added="2018-07-18T06:54:39Z" modified="2018-07-18T10:51:03Z" visited="2018-07-18T06:54:40Z">
     <info>
       <metadata owner="http://freedesktop.org">
         <mime:mime-type type="text/plain"/>
@@ -527,7 +527,7 @@
           <bookmark:group>gedit</bookmark:group>
         </bookmark:groups>
         <bookmark:applications>
-          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T06:54:39Z" count="1"/>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T10:51:03Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>
@@ -569,6 +569,31 @@
         <bookmark:applications>
           <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T07:13:35Z" count="1"/>
           <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T07:15:11Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/.local/share/Trash/files/Untitled%201.odt" added="2018-07-18T08:44:29Z" modified="2018-07-18T08:44:38Z" visited="2018-07-18T08:44:29Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.oasis.opendocument.text"/>
+        <bookmark:applications>
+          <bookmark:application name="nautilus" exec="&apos;libreoffice --writer %U&apos;" modified="2018-07-18T08:44:29Z" count="2"/>
+          <bookmark:application name="LibreOffice 5.1" exec="&apos;soffice %u&apos;" modified="2018-07-18T08:44:38Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/aravindh/environment/toy_app/Gemfile" added="2018-07-18T10:45:55Z" modified="2018-07-18T10:56:29Z" visited="2018-07-18T10:45:56Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>gedit</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="gedit" exec="&apos;gedit %u&apos;" modified="2018-07-18T10:51:51Z" count="14"/>
+          <bookmark:application name="nautilus" exec="&apos;gedit %U&apos;" modified="2018-07-18T10:56:29Z" count="2"/>
         </bookmark:applications>
       </metadata>
     </info>

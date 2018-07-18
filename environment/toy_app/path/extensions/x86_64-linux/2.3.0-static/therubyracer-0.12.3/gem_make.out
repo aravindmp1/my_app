@@ -1,0 +1,43 @@
+current directory: /home/aravindh/environment/toy_app/path/gems/therubyracer-0.12.3/ext/v8
+/home/aravindh/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20180718-22315-l66fgr.rb extconf.rb
+checking for main() in -lpthread... yes
+creating Makefile
+
+current directory: /home/aravindh/environment/toy_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR=" clean
+
+current directory: /home/aravindh/environment/toy_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR="
+compiling value.cc
+compiling v8.cc
+compiling object.cc
+compiling handles.cc
+compiling accessor.cc
+compiling constraints.cc
+compiling locker.cc
+compiling external.cc
+compiling array.cc
+compiling exception.cc
+compiling gc.cc
+compiling message.cc
+compiling string.cc
+compiling primitive.cc
+compiling constants.cc
+compiling date.cc
+compiling script.cc
+compiling context.cc
+compiling stack.cc
+compiling trycatch.cc
+compiling backref.cc
+compiling heap.cc
+compiling function.cc
+compiling signature.cc
+compiling template.cc
+compiling init.cc
+compiling rr.cc
+compiling invocation.cc
+linking shared-object v8/init.so
+
+current directory: /home/aravindh/environment/toy_app/path/gems/therubyracer-0.12.3/ext/v8
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 init.so ./.gem.20180718-22315-1q7x7q7/v8

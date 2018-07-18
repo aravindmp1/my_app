@@ -10,10 +10,10 @@
 
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1531889923);
 user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1531890043);
-user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1531896763);
+user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1531908946);
 user_pref("app.update.lastUpdateTime.experiments-update-timer", 1531889803);
 user_pref("app.update.lastUpdateTime.recipe-client-addon-run", 1531890283);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1531889683);
+user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1531911283);
 user_pref("app.update.lastUpdateTime.telemetry_modules_ping", 1531890403);
 user_pref("app.update.lastUpdateTime.xpi-signature-verification", 1531890163);
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
@@ -43,10 +43,10 @@ user_pref("browser.onboarding.tour-type", "new");
 user_pref("browser.pageActions.persistedActions", "{\"version\":1,\"ids\":[\"bookmark\",\"bookmarkSeparator\",\"copyURL\",\"emailLink\",\"sendToDevice\",\"pocket\",\"screenshots\"],\"idsInUrlbar\":[\"pocket\",\"bookmark\"]}");
 user_pref("browser.pagethumbnails.storage_version", 3);
 user_pref("browser.places.smartBookmarksVersion", 8);
-user_pref("browser.safebrowsing.provider.google4.lastupdatetime", "1531898525202");
-user_pref("browser.safebrowsing.provider.google4.nextupdatetime", "1531900331202");
-user_pref("browser.safebrowsing.provider.mozilla.lastupdatetime", "1531896745552");
-user_pref("browser.safebrowsing.provider.mozilla.nextupdatetime", "1531900345552");
+user_pref("browser.safebrowsing.provider.google4.lastupdatetime", "1531910651842");
+user_pref("browser.safebrowsing.provider.google4.nextupdatetime", "1531912459842");
+user_pref("browser.safebrowsing.provider.mozilla.lastupdatetime", "1531908932190");
+user_pref("browser.safebrowsing.provider.mozilla.nextupdatetime", "1531912532190");
 user_pref("browser.search.countryCode", "IN");
 user_pref("browser.search.region", "IN");
 user_pref("browser.sessionstore.upgradeBackup.latestBuildID", "20180313132747");
